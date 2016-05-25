@@ -34,10 +34,10 @@ namespace StartingShared
 		public async Task<List<Article>> TopStories ()
 		{
 			var response = await this.RequestTopStories ();
+			List<Article> articles = response.Results;
 
-			Debug.WriteLine ($"response received: ${response.Section}");
-
-			return new List<Article> { new Article{ Title = "Article 1" }, new Article{ Title = "Article 2" } };
+//			return new List<Article> { new Article{ Title = "Article 1" }, new Article{ Title = "Article 2" } };
+			return articles;
 		}
 
 	}

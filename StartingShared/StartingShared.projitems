@@ -22,10 +22,12 @@
       <DependentUpon>SecondPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)News\Services\NYTimesNewsService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)News\Views\MyFirstPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Starting02.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\MyFirstPage.xaml.cs">
       <DependentUpon>MyFirstPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Starting02.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)News\ViewModels\NewsListViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)News\ViewModels\ArticleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
@@ -44,7 +46,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SecondPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)News\Views\MyFirstPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\MyFirstPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
