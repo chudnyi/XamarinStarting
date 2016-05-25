@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{D7930F2C-0D34-4DCA-888E-2B59D77DC317}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>StartingShared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)MyClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)News\Services\INYTimesApi.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)News\Services\TopStoriesResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)News\Views\NewsListPage.xaml.cs">
+      <DependentUpon>NewsListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)News\Models\Article.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)News\Services\INewsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Router\StackNavigationRouter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SecondPage.xaml.cs">
+      <DependentUpon>SecondPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)News\Services\NYTimesNewsService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)News\Views\MyFirstPage.xaml.cs">
+      <DependentUpon>MyFirstPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Starting02.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Services\" />
+    <Folder Include="$(MSBuildThisFileDirectory)News\" />
+    <Folder Include="$(MSBuildThisFileDirectory)News\Views\" />
+    <Folder Include="$(MSBuildThisFileDirectory)News\ViewModels\" />
+    <Folder Include="$(MSBuildThisFileDirectory)News\Services\" />
+    <Folder Include="$(MSBuildThisFileDirectory)News\Models\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Router\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)News\Views\NewsListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SecondPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)News\Views\MyFirstPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
