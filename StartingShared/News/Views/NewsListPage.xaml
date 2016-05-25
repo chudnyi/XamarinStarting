@@ -9,6 +9,9 @@
 		</StackLayout>
 	</ContentPage.Content>-->
 	<ListView x:Name="listView" ItemsSource="{Binding Articles}" SelectedItem="{Binding SelectedArticle, Mode=TwoWay}">
+		<x:Arguments>
+			<ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+		</x:Arguments>
 		<ListView.ItemTemplate>
 			<DataTemplate>
 				<ImageCell Text="{Binding Title}" Detail="{Binding Subtitle}" ImageSource="{Binding ListRowImageSource}" />

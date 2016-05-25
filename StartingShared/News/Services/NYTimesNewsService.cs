@@ -8,7 +8,7 @@ namespace StartingShared
 {
 	public class NYTimesNewsService : INewsService
 	{
-		const string ApiKey = "8d18d66383464f1da0872ac13988b2a3";
+		const string TopStoriesApiKey = "8d18d66383464f1da0872ac13988b2a3";
 		const string ApiBaseAddress = "https://api.nytimes.com";
 
 		private INYTimesApi restService;
@@ -25,21 +25,23 @@ namespace StartingShared
 		{
 		}
 
-		async Task<TopStoriesResponse> RequestTopStories ()
+		async Task<TopStoriesResponse> RequestTopStories (TopStoriesCategory category = TopStoriesCategory.home)
 		{
-			var res = await this.RestService.TopStories (ApiKey);
+			var res = await this.RestService.TopStories (TopStoriesApiKey);
 			return res;
 		}
 
-		public async Task<List<Article>> TopStories ()
+		public async Task<List<Article>> TopStories (TopStoriesCategory category)
 		{
-			var response = await this.RequestTopStories ();
+			var response = await this.RequestTopStories (category);
 			List<Article> articles = response.Results;
-
-//			return new List<Article> { new Article{ Title = "Article 1" }, new Article{ Title = "Article 2" } };
 			return articles;
 		}
 
+		public Task<List<Article>> TopStories ()
+		{
+			return this.TopStories (TopStoriesCategory.home);
+		}
 	}
 }
 

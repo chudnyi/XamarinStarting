@@ -5,21 +5,21 @@ namespace StartingShared
 {
 	public class Multimedia
 	{
-		public string url { get; set; }
+		public string Url { get; set; }
 
-		public string format { get; set; }
+		public string Format { get; set; }
 
-		public int height { get; set; }
+		public int Height { get; set; }
 
-		public int width { get; set; }
+		public int Width { get; set; }
 
-		public string type { get; set; }
+//		public string Type { get; set; }
 
-		public string subtype { get; set; }
+		public string Subtype { get; set; }
 
-		public string caption { get; set; }
+		public string Caption { get; set; }
 
-		public string copyright { get; set; }
+		public string Copyright { get; set; }
 	}
 
 	public class Article
@@ -32,19 +32,19 @@ namespace StartingShared
 
 		public string Abstract { get; set; }
 
-		public string url { get; set; }
+		public string Url { get; set; }
 
-		public string short_url { get; set; }
+		public string ShortUrl { get; set; }
 
-		public string item_type { get; set; }
+		public string ItemType { get; set; }
 
-		public DateTime updated_date { get; set; }
+//		public DateTime UpdatedDate { get; set; }
+//
+//		public DateTime CreatedDate { get; set; }
+//
+//		public DateTime PublishedDate { get; set; }
 
-		public DateTime created_date { get; set; }
-
-		public DateTime published_date { get; set; }
-
-		public List<Multimedia> multimedia { get; set; }
+		public List<Multimedia> Multimedia { get; set; }
 
 		public Article ()
 		{

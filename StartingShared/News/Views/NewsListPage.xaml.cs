@@ -20,6 +20,8 @@ namespace StartingShared
 		public NewsListPage ()
 		{
 			InitializeComponent ();
+
+			// this.listView.IsPullToRefreshEnabled = true;
 		}
 
 		protected override void OnAppearing ()

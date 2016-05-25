@@ -7,7 +7,7 @@ namespace StartingShared
 	public interface INewsService
 	{
 		Task<List<Article>> TopStories();
-
+		Task<List<Article>> TopStories(TopStoriesCategory category);
 	}
 }
 
