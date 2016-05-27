@@ -6,9 +6,9 @@ namespace StartingPCL
 {
 	delegate void OnBindingContextChanged();
 
-	public class ArticleRowViewCell : ImageCell
+	public class ArticleRowViewCell : ViewCell
 	{
-		
+		public event EventHandler BindingContextChanging;
 
 		public ArticleRowViewCell ()
 		{
@@ -30,6 +30,9 @@ namespace StartingPCL
 				var viewModel = (ArticleViewModel)this.BindingContext;
 				var url = viewModel?.Url ?? "url not set";
 				Debug.WriteLine ($"changing BindingContext: ${url}");
+
+				if (this.BindingContextChanging != null)
+					this.BindingContextChanging (this, EventArgs.Empty);
 			}
 
 			base.OnPropertyChanging (propertyName);

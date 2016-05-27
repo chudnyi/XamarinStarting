@@ -12,9 +12,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)MyClass.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)News\Services\INYTimesApi.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)News\Services\TopStoriesResponse.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)News\Views\NewsListPage.xaml.cs">
-      <DependentUpon>NewsListPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Router\StackNavigationRouter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\SecondPage.xaml.cs">
       <DependentUpon>SecondPage.xaml</DependentUpon>
@@ -38,9 +35,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Views\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)News\Views\NewsListPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SecondPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
