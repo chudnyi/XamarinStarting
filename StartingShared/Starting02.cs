@@ -1,8 +1,7 @@
 ﻿using System;
-
 using Xamarin.Forms;
 //using static System.Math;
-
+using StartingPCL;
 
 namespace StartingShared
 {

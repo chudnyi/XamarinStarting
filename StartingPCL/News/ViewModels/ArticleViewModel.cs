@@ -6,11 +6,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Diagnostics;
 
-namespace StartingShared
+namespace StartingPCL
 {
 	public class ArticleViewModel : BaseViewModel
 	{
 		private Article Model { get; set; }
+		public string Url { get;}
 
 		public ArticleViewModel (Article article)
 		{
@@ -18,11 +19,10 @@ namespace StartingShared
 
 			this.Title = article.Title;
 			this.Subtitle = article.Abstract;
-
-
+			this.Url = article.Url;
 		}
 
-		private ImageSource listRowImageSource;
+		private UriImageSource listRowImageSource;
 
 		public ImageSource ListRowImageSource {
 			get { 
@@ -33,7 +33,12 @@ namespace StartingShared
 					var image = images.Count != 0 ? images [0] : null;
 					if (image != null) {
 						var imageUrl = new Uri (image.Url);
-						this.listRowImageSource = ImageSource.FromUri (imageUrl);
+//						this.listRowImageSource = ImageSource.FromUri (imageUrl);
+						listRowImageSource = new UriImageSource { 
+							CachingEnabled = true, 
+							Uri = imageUrl,
+							CacheValidity = new TimeSpan (1, 0, 0, 0)
+						};
 					}
 				}
 				return this.listRowImageSource;

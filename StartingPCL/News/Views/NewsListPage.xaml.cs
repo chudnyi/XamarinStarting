@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
-using StartingPCL;
 
 //using Refit;
 
-namespace StartingShared
+namespace StartingPCL
 {
 	public partial class NewsListPage : ContentPage
 	{

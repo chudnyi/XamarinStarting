@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StartingShared
+namespace StartingPCL
 {
 	public class NewsListViewModel : BaseViewModel
 	{

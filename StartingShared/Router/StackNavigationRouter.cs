@@ -1,23 +1,10 @@
 ﻿using System;
 using Xamarin.Forms;
 using System.Threading.Tasks;
+using StartingPCL;
 
 namespace StartingShared
 {
-	public interface IRouter
-	{
-		Task DisplayAlert (string title, string message, string cancel);
-
-		Task<bool> DisplayAlert (string title, string message, string accept, string cancel);
-
-		Task<string> DisplayActionSheet (string title, string cancel, string destruction, params string[] buttons);
-
-		void routeSecondPage ();
-
-		void routeNewsPage ();
-
-	}
-
 	public class StackNavigationRouter : IRouter
 	{
 		NavigationPage navigationPage { get; }
@@ -60,9 +47,14 @@ namespace StartingShared
 				Router = this
 			};
 			
-			this.navigationPage.PushAsync (new NewsListPage () {
+			this.navigationPage.PushAsync (new StartingPCL.NewsListPage () {
 				ViewModel = viewModel
 			});
+		}
+
+		public void routeArticleDetailsPage ()
+		{
+			throw new NotImplementedException ();
 		}
 	}
 }

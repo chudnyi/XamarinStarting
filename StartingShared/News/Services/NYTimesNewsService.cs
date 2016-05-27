@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using Refit;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
+using StartingPCL;
 
 namespace StartingShared
 {
@@ -15,8 +17,11 @@ namespace StartingShared
 
 		INYTimesApi RestService {
 			get {
-				if (restService == null)
+				if (restService == null) {
 					restService = Refit.RestService.For<StartingShared.INYTimesApi> (ApiBaseAddress);
+//					new HttpMessageHandler()
+//					new HttpClient()
+				}
 				return restService;
 			}
 		}

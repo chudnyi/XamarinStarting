@@ -1,40 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Refit;
+using StartingPCL;
 
 namespace StartingShared
 {
-	public enum TopStoriesCategory
-	{
-		home,
-		opinion,
-		world,
-		national,
-		politics,
-		upshot,
-		nyregion,
-		business,
-		technology,
-		science,
-		health,
-		sports,
-		arts,
-		books,
-		movies,
-		theater,
-		sundayreview,
-		fashion,
-		tmagazine,
-		food,
-		travel,
-		magazine,
-		realestate,
-		automobiles,
-		obituaries,
-		insider
-	}
-
-
 	public interface INYTimesApi
 	{
 //		[Get ("/svc/topstories/v2/home.json?api-key={apiKey}")]

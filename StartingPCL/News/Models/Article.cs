@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace StartingShared
+namespace StartingPCL
 {
 	public class Multimedia
 	{
