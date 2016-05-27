@@ -27,7 +27,8 @@ namespace StartingShared
 
 		async Task<TopStoriesResponse> RequestTopStories (TopStoriesCategory category = TopStoriesCategory.home)
 		{
-			var res = await this.RestService.TopStories (TopStoriesApiKey);
+			string NYTimesApiKey = TopStoriesApiKey;
+			var res = await this.RestService.TopStories (NYTimesApiKey);
 			return res;
 		}
 
