@@ -5,13 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Diagnostics;
+using System.Windows.Input;
 
 namespace StartingPCL
 {
 	public class ArticleViewModel : BaseViewModel
 	{
-		private Article Model { get; set; }
-		public string Url { get;}
+		public Article Model { get; private set; }
+
+		public string Url { get; }
+		public string TimeText { get; }
 
 		public ArticleViewModel (Article article)
 		{
@@ -20,6 +23,8 @@ namespace StartingPCL
 			this.Title = article.Title;
 			this.Subtitle = article.Abstract;
 			this.Url = article.Url;
+//			this.TimeText = article.PublishedDate.ToString ("f");
+			this.TimeText = DateTime.Now.ToString ("f");
 		}
 
 		private UriImageSource listRowImageSource;
@@ -42,6 +47,29 @@ namespace StartingPCL
 					}
 				}
 				return this.listRowImageSource;
+			}
+		}
+
+		FormattedString textForListViewCell;
+
+		public FormattedString TextForListViewCell {
+			get { 
+				if (textForListViewCell == null) {
+					textForListViewCell = new FormattedString ();
+					textForListViewCell.Spans.Add (new Span { Text = Title, FontSize = 18, ForegroundColor=Color.FromHex("#f35e20") });
+					textForListViewCell.Spans.Add (new Span { Text = Title, FontSize = 12, ForegroundColor=Color.FromHex("#503026") });
+				}
+
+				return textForListViewCell;
+			}
+		}
+
+		public void WillUnbindFromListViewCell ()
+		{
+			Debug.WriteLine ($"[PrepareForReuseInListViewCell]...");
+
+			if (this.listRowImageSource != null) {
+				this.listRowImageSource.Cancel ();
 			}
 		}
 	}

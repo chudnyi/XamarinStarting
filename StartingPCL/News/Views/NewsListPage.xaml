@@ -1,29 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="StartingPCL.NewsListPage" Title="{Binding Title}" IsBusy="{Binding IsBusy}" xmlns:local="clr-namespace:StartingPCL;assembly=StartingPCL">
-	<!--	<ContentPage.Padding>
-		<OnPlatform x:TypeArguments="Thickness" iOS="10, 20, 10, 0" Android="10, 0" WinPhone="10, 0" />
-	</ContentPage.Padding>-->
-	<!--	<ContentPage.Content>
-		<StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-			<Label Text="News articles..." x:Name="articlesCountLabel" />
-		</StackLayout>
-	</ContentPage.Content>-->
 
-		<ListView x:Name="listView" ItemsSource="{Binding Articles}" SelectedItem="{Binding SelectedArticle, Mode=TwoWay}"
-		CachingStrategy="RecycleElement">
-			<ListView.ItemTemplate>
-				<DataTemplate>
-					<local:ArticleRowViewCell Height="60">
-						<StackLayout Orientation="Horizontal" VerticalOptions="Center">
-							<Image Source="{Binding ListRowImageSource}" />
-							<StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
-								<Label Text="{Binding Title}" TextColor="#f35e20" />
-								<Label Text="{Binding Subtitle}" TextColor="#503026" />
-							</StackLayout>
-						</StackLayout>
-					</local:ArticleRowViewCell>
-				</DataTemplate>
-			</ListView.ItemTemplate>
+		<ListView x:Name="listView" ItemsSource="{Binding Articles}" 
+			 RowHeight="52">
+ 			<x:Arguments>
+			    <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+			  </x:Arguments>
 		</ListView>
 	
 </ContentPage>

@@ -8,4 +8,3 @@ namespace StartingShared
 		Task<Task> RequestResource<T> (string srg);
 	}
 }
-

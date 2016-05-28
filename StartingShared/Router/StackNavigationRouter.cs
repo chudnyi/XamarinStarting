@@ -5,14 +5,18 @@ using StartingPCL;
 
 namespace StartingShared
 {
-	public class StackNavigationRouter : IRouter
+	/// <summary>
+	/// Stack navigation router and application components factory.
+	/// TODO: Extract components factory logic to external class (single responsibility principe).
+	/// </summary>
+	public class StackNavigationRouter : IRouter, IViewModelsFactory
 	{
-		NavigationPage navigationPage { get; }
+		private NavigationPage navigationPage { get; set; }
 
-		public StackNavigationRouter (NavigationPage navigationPage)
-		{
-			this.navigationPage = navigationPage;
-		}
+		//		public StackNavigationRouter (NavigationPage navigationPage)
+		//		{
+		//			this.navigationPage = navigationPage;
+		//		}
 
 		public Task DisplayAlert (string title, string message, string cancel)
 		{
@@ -32,6 +36,14 @@ namespace StartingShared
 			return page.DisplayActionSheet (title, cancel, destruction, buttons);
 		}
 
+		public Xamarin.Forms.Page mainPage ()
+		{
+			if (navigationPage == null) {
+				navigationPage = new NavigationPage (this.CreateMyFirstPage());
+			}
+
+			return navigationPage;
+		}
 
 		public void routeSecondPage ()
 		{
@@ -42,19 +54,43 @@ namespace StartingShared
 
 		public void routeNewsPage ()
 		{
-			NewsListViewModel viewModel = new NewsListViewModel {
-				NewsService = new NYTimesNewsService (),
-				Router = this
-			};
-			
 			this.navigationPage.PushAsync (new StartingPCL.NewsListPage () {
-				ViewModel = viewModel
+				ViewModel = this.NewsListViewModel ()
 			});
 		}
 
-		public void routeArticleDetailsPage ()
+		public void routeArticleDetailsPage (Article model)
 		{
-			throw new NotImplementedException ();
+			if (model == null)
+				throw new ArgumentNullException ("model");
+			
+			this.navigationPage.PushAsync (new StartingPCL.ArticleDetailsPage () {
+				ViewModel = this.ArticleViewModel (model)
+			});
+		}
+
+		private MyFirstPage CreateMyFirstPage() {
+			return new MyFirstPage() {
+				Router = this
+			};
+		}
+
+		public ArticleViewModel ArticleViewModel (Article model)
+		{
+			if (model == null)
+				throw new ArgumentNullException ("model");
+
+			return new ArticleViewModel (model) {
+			};
+		}
+
+		public NewsListViewModel NewsListViewModel ()
+		{
+			return new NewsListViewModel {
+				NewsService = new NYTimesNewsService (),
+				Router = this,
+				ViewModelsFactory = this
+			};
 		}
 	}
 }

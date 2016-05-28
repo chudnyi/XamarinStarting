@@ -21,13 +21,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\MyFirstPage.xaml.cs">
       <DependentUpon>MyFirstPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Services\IImageService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\INetworkService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\ImageServiceImpl.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\IImageCache.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Services\" />
     <Folder Include="$(MSBuildThisFileDirectory)News\" />
     <Folder Include="$(MSBuildThisFileDirectory)News\Views\" />
     <Folder Include="$(MSBuildThisFileDirectory)News\Services\" />

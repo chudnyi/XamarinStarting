@@ -11,11 +11,14 @@ namespace StartingPCL
 
 		Task<string> DisplayActionSheet (string title, string cancel, string destruction, params string[] buttons);
 
+
+		Xamarin.Forms.Page mainPage ();
+
 		void routeSecondPage ();
 
 		void routeNewsPage ();
 
-		void routeArticleDetailsPage ();
+		void routeArticleDetailsPage (Article model);
 
 	}
 }

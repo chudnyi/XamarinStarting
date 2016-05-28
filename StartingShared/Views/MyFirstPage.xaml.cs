@@ -7,7 +7,7 @@ namespace StartingShared
 {
 	public partial class MyFirstPage : ContentPage
 	{
-		public IRouter router { get; set; }
+		public IRouter Router { get; set; }
 
 		public MyFirstPage ()
 		{
@@ -19,12 +19,12 @@ namespace StartingShared
 
 		void BtnNews_Clicked (object sender, EventArgs e)
 		{
-			this.router?.routeNewsPage ();
+			this.Router?.routeNewsPage ();
 		}
 
 		void BtnPushMe_Clicked (object sender, EventArgs e)
 		{
-			this.router?.routeSecondPage ();
+			this.Router?.routeSecondPage ();
 		}
 	}
 }

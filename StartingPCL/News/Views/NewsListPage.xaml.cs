@@ -20,8 +20,15 @@ namespace StartingPCL
 		public NewsListPage ()
 		{
 			InitializeComponent ();
+			this.listView.ItemTemplate = new DataTemplate (typeof(ArticleRowViewCell));
 
-			// this.listView.IsPullToRefreshEnabled = true;
+			this.listView.ItemSelected += (sender, e) => {
+				if(e.SelectedItem == null) return;
+
+				this.ViewModel.OnArticleSelected((ArticleViewModel)e.SelectedItem);
+
+				((ListView)sender).SelectedItem = null; // deselect row
+			};
 		}
 
 		protected override void OnAppearing ()

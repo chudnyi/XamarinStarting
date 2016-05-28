@@ -7,6 +7,8 @@ using System.Linq.Expressions;
 using System.Linq;
 using System.Threading.Tasks;
 
+// http://www.codeproject.com/Articles/252392/Create-MVVM-Background-Tasks-with-Progress-Reporti
+
 namespace StartingPCL
 {
 	public class NewsListViewModel : BaseViewModel
@@ -14,6 +16,9 @@ namespace StartingPCL
 		public INewsService NewsService { get; set; }
 
 		public IRouter Router  { get; set; }
+
+		public IViewModelsFactory ViewModelsFactory { get; set; }
+
 
 		public ObservableRangeCollection<ArticleViewModel> Articles { get; set; } = new ObservableRangeCollection<ArticleViewModel>();
 
@@ -27,13 +32,9 @@ namespace StartingPCL
 		public void OnAppearing ()
 		{
 			Debug.WriteLine ("[NewsListViewModel] OnAppearing...");
-//			await this.FetchArticlesAsync (TopStoriesCategory.automobiles);
-//			await this.FetchArticlesAsync (TopStoriesCategory.travel);
-//			await this.FetchArticlesAsync (TopStoriesCategory.food);
-//			this.FetchArticlesAsync (TopStoriesCategory.sports);
-//			this.FetchArticlesAsync (TopStoriesCategory.arts);
-//			this.FetchArticlesAsync (TopStoriesCategory.technology);
-			this.FetchAllArticlesAsync ();
+
+			if(this.Articles.Count == 0)
+				this.FetchAllArticlesAsync ();
 		}
 
 		async Task FetchAllArticlesAsync ()
@@ -44,6 +45,11 @@ namespace StartingPCL
 			await this.FetchArticlesAsync (TopStoriesCategory.sports);
 			await this.FetchArticlesAsync (TopStoriesCategory.arts);
 			await this.FetchArticlesAsync (TopStoriesCategory.technology);
+			await this.FetchArticlesAsync (TopStoriesCategory.business);
+			await this.FetchArticlesAsync (TopStoriesCategory.magazine);
+			await this.FetchArticlesAsync (TopStoriesCategory.realestate);
+			await this.FetchArticlesAsync (TopStoriesCategory.obituaries);
+			await this.FetchArticlesAsync (TopStoriesCategory.fashion);
 		}
 
 		async Task FetchArticlesAsync (TopStoriesCategory category = TopStoriesCategory.home)
@@ -55,17 +61,19 @@ namespace StartingPCL
 
 			try {
 				Debug.WriteLine ($"[NewsListViewModel] FetchArticles {category.ToString()}...");
-				var models = await this.NewsService.TopStories (category);
-				Debug.WriteLine ($"articles received: {models.Count}");
+				var loadTask = this.NewsService.TopStories (category);
 
-//				this.SelectedArticle = null;
-//				var viewModels = models.Select (article => new ArticleViewModel (article)).ToList ();
-				var viewModels = from article in models
-				                 select new ArticleViewModel (article);
-//				var viewModels = new List<ArticleViewModel> { new ArticleViewModel (models[0]) };
-//				var viewModels = new List<ArticleViewModel>();
-//				var viewModels = models.ConvertAll (article => new ArticleViewModel (article));
-//				this.Articles.ReplaceRange (viewModels);
+				var viewModels = await loadTask.ContinueWith (t => {
+//					Debug.WriteLine ($"AppBase.IsMainThread = {AppBase.IsMainThread}");
+					var objs = t.Result;
+					// create view models in background
+					var vms = from article in objs
+					          select this.ViewModelsFactory.ArticleViewModel (article);
+					
+					return vms;
+				});
+				// TaskScheduler.FromCurrentSynchronizationContext()
+
 				this.Articles.AddRange (viewModels);
 				var count = this.Articles.Count;
 				this.Title = $"NY Times ({count} articles)";
@@ -78,11 +86,16 @@ namespace StartingPCL
 			} finally {
 				this.IsBusy = false;
 			}
-
-
 		}
 
+		public void OnArticleSelected(ArticleViewModel articleViewModel) {
+			if (articleViewModel == null)
+				throw new ArgumentNullException ("articleViewModel");
+
+			this.Router.routeArticleDetailsPage (articleViewModel.Model);
+		}
 
 	}
+
 }
 

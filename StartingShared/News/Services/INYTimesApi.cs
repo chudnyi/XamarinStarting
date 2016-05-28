@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 using Refit;
 using StartingPCL;
 
+// https://github.com/paulcbetts/refit
+
+
 namespace StartingShared
 {
 	public interface INYTimesApi

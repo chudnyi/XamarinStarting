@@ -1,25 +1,30 @@
 ﻿using System;
 using Xamarin.Forms;
+
 //using static System.Math;
 using StartingPCL;
 
 namespace StartingShared
 {
-	public class App : Application
+	public class App : AppBase
 	{
-		IRouter router { get; set;}
+		static int mainThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
+
+		IRouter router { get; set; }
 
 		public App ()
 		{
-			MyFirstPage startPage = new MyFirstPage ();
+			AppBase.IsMainThreadImpl = () => {
+				return System.Threading.Thread.CurrentThread.ManagedThreadId == mainThreadId;
+			};
 
-			var navPage = new NavigationPage (startPage);
-			this.router = new StackNavigationRouter (navPage);
-			startPage.router = this.router;
+			this.router = new StackNavigationRouter ();
 
 			// The root page of your application
-			MainPage = navPage;
+			MainPage = this.router.mainPage ();
 			MainPage.BackgroundColor = Color.FromRgb (240, 240, 250);
+
+//			router.routeNewsPage ();
 		}
 
 		protected override void OnStart ()

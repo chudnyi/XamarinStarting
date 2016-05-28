@@ -1,38 +1,99 @@
 ﻿using System;
 using Xamarin.Forms;
 using System.Diagnostics;
+using System.Windows.Input;
 
 namespace StartingPCL
 {
-	delegate void OnBindingContextChanged();
+	delegate void OnBindingContextChanged ();
 
 	public class ArticleRowViewCell : ViewCell
 	{
-		public event EventHandler BindingContextChanging;
+		Image image = null;
+		Label title = null;
+		Label subtitle = null;
+		Label timeLabel = null;
 
 		public ArticleRowViewCell ()
 		{
-		}
+			// Performance optimization
+			// https://developer.xamarin.com/guides/xamarin-forms/user-interface/listview/performance/#RecycleElement
+			// no xaml, no bindings
 
+			image = new Image ();
+			title = new Label () { 
+				TextColor=Color.FromHex("#f35e20"),
+				LineBreakMode = LineBreakMode.TailTruncation
+			};
+			subtitle = new Label () { 
+				TextColor=Color.FromHex("#503026"),
+				LineBreakMode = LineBreakMode.TailTruncation,
+				FontSize = 12
+			};
+
+			timeLabel = new Label () { 
+				TextColor=Color.FromHex("#B7B3B4"),
+				LineBreakMode = LineBreakMode.NoWrap,
+				FontSize = 12,
+				HorizontalOptions=LayoutOptions.StartAndExpand,
+			};
+
+			var bottomGrid = new Grid () {
+				ColumnDefinitions = {
+					new ColumnDefinition () { Width = new GridLength (100, GridUnitType.Absolute) },
+					new ColumnDefinition () { Width = new GridLength (1, GridUnitType.Auto) },
+				}
+			};
+			bottomGrid.Children.Add (timeLabel);
+			bottomGrid.Children.Add (subtitle, 1, 0);
+
+
+			View = new StackLayout () {
+				Padding = new Thickness (4),
+				Orientation = StackOrientation.Horizontal,
+				VerticalOptions = LayoutOptions.Center,
+				Children = {
+					image,
+					new StackLayout () {
+						Orientation = StackOrientation.Vertical,
+						HorizontalOptions = LayoutOptions.StartAndExpand,
+						VerticalOptions = LayoutOptions.Center,
+						Children = {
+							title, 		
+							bottomGrid
+						}
+					}
+				}
+			};
+		}
+			
 		protected override void OnBindingContextChanged ()
 		{
 			base.OnBindingContextChanged ();
 
-			var viewModel = (ArticleViewModel)this.BindingContext;
-			var url = viewModel?.Url ?? "url not set";
-			Debug.WriteLine ($"OnBindingContextChanged: ${url}");
+			// TODO: !!!
+			// https://github.com/luberda-molinet/FFImageLoading/wiki/Xamarin.Forms-Advanced
 
-		}	
+
+			// Performance optimization
+			// https://developer.xamarin.com/guides/xamarin-forms/user-interface/listview/performance/#RecycleElement
+			var viewModel = BindingContext as ArticleViewModel;
+//			image.Source = viewModel != null ? viewModel.ListRowImageSource : null;
+//			title.Text = viewModel!= null ? viewModel.Title : null;
+//			subtitle.Text = viewModel!= null ? viewModel.Subtitle : null;
+
+			image.Source = viewModel?.ListRowImageSource;
+			title.Text = viewModel?.Title;
+			subtitle.Text = viewModel?.Subtitle;
+			timeLabel.Text = viewModel?.TimeText;
+
+		}
 
 		protected override void OnPropertyChanging (string propertyName)
 		{
-			if(propertyName == "BindingContext") {
-				var viewModel = (ArticleViewModel)this.BindingContext;
-				var url = viewModel?.Url ?? "url not set";
-				Debug.WriteLine ($"changing BindingContext: ${url}");
-
-				if (this.BindingContextChanging != null)
-					this.BindingContextChanging (this, EventArgs.Empty);
+			if (propertyName == "BindingContext") {
+				var viewModel = BindingContext as ArticleViewModel;
+				viewModel?.WillUnbindFromListViewCell ();
 			}
 
 			base.OnPropertyChanging (propertyName);
