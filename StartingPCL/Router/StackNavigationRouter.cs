@@ -3,7 +3,7 @@ using Xamarin.Forms;
 using System.Threading.Tasks;
 using StartingPCL;
 
-namespace StartingShared
+namespace StartingPCL
 {
 	/// <summary>
 	/// Stack navigation router and application components factory.

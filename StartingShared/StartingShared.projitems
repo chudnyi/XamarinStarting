@@ -9,32 +9,8 @@
     <Import_RootNamespace>StartingShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)MyClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)News\Services\INYTimesApi.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)News\Services\TopStoriesResponse.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Router\StackNavigationRouter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\SecondPage.xaml.cs">
-      <DependentUpon>SecondPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)News\Services\NYTimesNewsService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Starting02.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\MyFirstPage.xaml.cs">
-      <DependentUpon>MyFirstPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)News\" />
     <Folder Include="$(MSBuildThisFileDirectory)News\Views\" />
     <Folder Include="$(MSBuildThisFileDirectory)News\Services\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Router\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Views\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SecondPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\MyFirstPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 </Project>

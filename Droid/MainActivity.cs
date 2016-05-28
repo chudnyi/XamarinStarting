@@ -21,7 +21,7 @@ namespace Starting02.Droid
 
 			global::Xamarin.Forms.Forms.Init (this, bundle);
 
-			LoadApplication (new StartingShared.App ());
+			LoadApplication (new StartingPCL.App ());
 		}
 	}
 }

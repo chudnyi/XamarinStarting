@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using StartingPCL;
 
-namespace StartingShared
+namespace StartingPCL
 {
 	public partial class MyFirstPage : ContentPage
 	{

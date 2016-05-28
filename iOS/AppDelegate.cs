@@ -15,7 +15,7 @@ namespace Starting02.iOS
 //			FFImageLoading.Forms.Touch.CachedImageRenderer.Init();
 			global::Xamarin.Forms.Forms.Init ();
 
-			LoadApplication (new StartingShared.App ());
+			LoadApplication (new StartingPCL.App ());
 
 			return base.FinishedLaunching (app, options);
 		}

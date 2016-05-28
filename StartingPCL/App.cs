@@ -1,22 +1,21 @@
 ﻿using System;
 using Xamarin.Forms;
 
-//using static System.Math;
-using StartingPCL;
-
-namespace StartingShared
+namespace StartingPCL
 {
-	public class App : AppBase
+	public class App : Application
 	{
-		static int mainThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
+//		static int mainThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
+		public static Redux.Store<State> Store = new Redux.Store<State> (Reducer.Execute, new State());
+
 
 		IRouter router { get; set; }
 
 		public App ()
 		{
-			AppBase.IsMainThreadImpl = () => {
-				return System.Threading.Thread.CurrentThread.ManagedThreadId == mainThreadId;
-			};
+//			AppBase.IsMainThreadImpl = () => {
+//				return System.Threading.Thread.CurrentThread.ManagedThreadId == mainThreadId;
+//			};
 
 			this.router = new StackNavigationRouter ();
 

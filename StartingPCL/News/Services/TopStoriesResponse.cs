@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using StartingPCL;
 
-namespace StartingShared
+namespace StartingPCL
 {
-	public class TopStoriesResponse
+	internal class TopStoriesResponse
 	{
 		public string Status { get; set; }
 		public string Section { get; set; }

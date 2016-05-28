@@ -46,8 +46,8 @@ namespace StartingPCL
 
 		public List<Multimedia> Multimedia { get; set; }
 
-		public string Id {
-			get { return Url; }
+		public EntityId Id {
+			get { return (EntityId)Url; }
 		}
 
 		public Article ()

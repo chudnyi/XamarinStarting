@@ -6,9 +6,9 @@ using System.Diagnostics;
 using System.Net.Http;
 using StartingPCL;
 
-namespace StartingShared
+namespace StartingPCL
 {
-	public class NYTimesNewsService : INewsService
+	internal class NYTimesNewsService : INewsService
 	{
 		const string TopStoriesApiKey = "8d18d66383464f1da0872ac13988b2a3";
 		const string ApiBaseAddress = "https://api.nytimes.com";
@@ -18,7 +18,7 @@ namespace StartingShared
 		INYTimesApi RestService {
 			get {
 				if (restService == null) {
-					restService = Refit.RestService.For<StartingShared.INYTimesApi> (ApiBaseAddress);
+					restService = Refit.RestService.For<StartingPCL.INYTimesApi> (ApiBaseAddress);
 //					new HttpMessageHandler()
 //					new HttpClient()
 				}

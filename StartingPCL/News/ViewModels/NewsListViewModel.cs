@@ -27,14 +27,25 @@ namespace StartingPCL
 		public NewsListViewModel ()
 		{
 			this.Title = "NY Times";
+
+
+			App.Store.Subscribe (state => {
+				var isBusy = state.StateNews.IsBusy;
+				Debug.WriteLine ($"[State changed] IsBusy = {isBusy}");
+			});
 		}
 
-		public void OnAppearing ()
+		public async void OnAppearing ()
 		{
 			Debug.WriteLine ("[NewsListViewModel] OnAppearing...");
 
-			if(this.Articles.Count == 0)
-				this.FetchAllArticlesAsync ();
+//			NewsActionCreator.CreateNewsFetchAction (TopStoriesCategory.food).Dispatch ();
+			await NewsActionCreator.NewsFetchActionAsync (TopStoriesCategory.food).DispatchAsync ();
+
+
+			Debug.WriteLine ("[NewsListViewModel] NewsFetchActionAsync complete");
+//			if(this.Articles.Count == 0)
+//				this.FetchAllArticlesAsync ();
 		}
 
 		async Task FetchAllArticlesAsync ()

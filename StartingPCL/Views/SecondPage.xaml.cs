@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 
-namespace StartingShared
+namespace StartingPCL
 {
 	public partial class SecondPage : ContentPage
 	{

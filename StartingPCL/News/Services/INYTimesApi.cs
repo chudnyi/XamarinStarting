@@ -6,9 +6,9 @@ using StartingPCL;
 // https://github.com/paulcbetts/refit
 
 
-namespace StartingShared
+namespace StartingPCL
 {
-	public interface INYTimesApi
+	internal interface INYTimesApi
 	{
 //		[Get ("/svc/topstories/v2/home.json?api-key={apiKey}")]
 //		Task<TopStoriesResponse> TopStories (string apiKey);
