@@ -46,6 +46,10 @@ namespace StartingPCL
 
 		public List<Multimedia> Multimedia { get; set; }
 
+		public string Id {
+			get { return Url; }
+		}
+
 		public Article ()
 		{
 		}
@@ -54,7 +58,8 @@ namespace StartingPCL
 		{
 			return string.Format ("[Article: Title={0}, Section={1}, Subsection={2}, Abstract={3}, Url={4}, ShortUrl={5}, ItemType={6}]", Title, Section, Subsection, Abstract, Url, ShortUrl, ItemType);
 		}
-		
+
+
 	}
 }
 
