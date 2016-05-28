@@ -13,8 +13,12 @@ namespace StartingPCL
 	{
 		public Article Model { get; private set; }
 
-		public string Url { get; }
+		public Uri Url { get; }
 		public string TimeText { get; }
+		public string BodyText { get; }
+		public string SectionText { get; }
+		public string SubsectionText { get; }
+		public ICommand ReadMoreCommand { get;}
 
 		public ArticleViewModel (Article article)
 		{
@@ -22,9 +26,36 @@ namespace StartingPCL
 
 			this.Title = article.Title;
 			this.Subtitle = article.Abstract;
-			this.Url = article.Url;
-//			this.TimeText = article.PublishedDate.ToString ("f");
-			this.TimeText = DateTime.Now.ToString ("f");
+			Uri uri;
+			if (Uri.TryCreate (article.Url, UriKind.Absolute, out uri))
+				this.Url = uri;
+			this.TimeText = DateTime.Now.ToString ("f"); // fake published date
+			this.BodyText = article.Abstract;
+
+			this.SectionText = article.Section != null ? string.Format("Section: {0}", article.Section) : null;
+			this.SubsectionText = article.Subsection != null ? string.Format("Subsection: {0}", article.Subsection) : null;
+
+			this.ReadMoreCommand = new Command (OnReadMore);
+		}
+
+		private Uri imageUri;
+		public Uri ImageUri {
+			get { 
+				if (imageUri == null) {
+					var images = this.Model.Multimedia;
+					var image = images?.Count != 0 ? images [0] : null;
+					if (image != null) {
+						imageUri = new Uri (image.Url);
+					}
+				}
+				return imageUri;
+			}
+		}
+
+		public bool IsImageVisible {
+			get {
+				return this.ImageUri != null;
+			}
 		}
 
 		private UriImageSource listRowImageSource;
@@ -50,6 +81,12 @@ namespace StartingPCL
 			}
 		}
 
+		public ImageSource DetailsImageSource {
+			get {
+				return this.ListRowImageSource;
+			}
+		}
+
 		FormattedString textForListViewCell;
 
 		public FormattedString TextForListViewCell {
@@ -71,6 +108,15 @@ namespace StartingPCL
 			if (this.listRowImageSource != null) {
 				this.listRowImageSource.Cancel ();
 			}
+		}
+
+		private void OnReadMore() {
+
+			if(this.Url != null) {
+				Debug.WriteLine ($"Openin URL: {this.Url} ...");
+				Device.OpenUri(this.Url);
+			}
+
 		}
 	}
 }

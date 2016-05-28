@@ -20,6 +20,14 @@ namespace StartingPCL
 				this.BindingContext = value;
 			}
 		}
+
+		protected override void OnAppearing ()
+		{
+			base.OnAppearing ();
+
+			var model = this.ViewModel.Model;
+			System.Diagnostics.Debug.WriteLine ($"Article details: {model}");
+		}
 	}
 }
 

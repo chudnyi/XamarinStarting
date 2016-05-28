@@ -49,6 +49,12 @@ namespace StartingPCL
 		public Article ()
 		{
 		}
+
+		public override string ToString ()
+		{
+			return string.Format ("[Article: Title={0}, Section={1}, Subsection={2}, Abstract={3}, Url={4}, ShortUrl={5}, ItemType={6}]", Title, Section, Subsection, Abstract, Url, ShortUrl, ItemType);
+		}
+		
 	}
 }
 
