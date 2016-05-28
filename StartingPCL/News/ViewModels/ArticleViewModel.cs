@@ -62,20 +62,12 @@ namespace StartingPCL
 
 		public ImageSource ListRowImageSource {
 			get { 
-				if (this.listRowImageSource == null) {
-					var images = this.Model.Multimedia;
-					Debug.WriteLine ($"Article multimedia: {images.Count}");
-
-					var image = images.Count != 0 ? images [0] : null;
-					if (image != null) {
-						var imageUrl = new Uri (image.Url);
-//						this.listRowImageSource = ImageSource.FromUri (imageUrl);
-						listRowImageSource = new UriImageSource { 
-							CachingEnabled = true, 
-							Uri = imageUrl,
-							CacheValidity = new TimeSpan (1, 0, 0, 0)
-						};
-					}
+				if (this.ImageUri != null) {
+					listRowImageSource = new UriImageSource { 
+						CachingEnabled = true, 
+						Uri = this.ImageUri,
+						CacheValidity = new TimeSpan (1, 0, 0, 0)
+					};
 				}
 				return this.listRowImageSource;
 			}
@@ -107,6 +99,7 @@ namespace StartingPCL
 
 			if (this.listRowImageSource != null) {
 				this.listRowImageSource.Cancel ();
+
 			}
 		}
 

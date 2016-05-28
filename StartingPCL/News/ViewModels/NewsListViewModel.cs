@@ -52,7 +52,7 @@ namespace StartingPCL
 			await this.FetchArticlesAsync (TopStoriesCategory.fashion);
 		}
 
-		async Task FetchArticlesAsync (TopStoriesCategory category = TopStoriesCategory.home)
+		async Task FetchArticlesAsync (TopStoriesCategory category)
 		{
 			if (this.IsBusy)
 				return;

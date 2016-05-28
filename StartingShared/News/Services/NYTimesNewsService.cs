@@ -30,17 +30,24 @@ namespace StartingShared
 		{
 		}
 
-		async Task<TopStoriesResponse> RequestTopStories (TopStoriesCategory category = TopStoriesCategory.home)
+		async Task<TopStoriesResponse> RequestTopStories (TopStoriesCategory category)
 		{
-			string NYTimesApiKey = TopStoriesApiKey;
-			var res = await this.RestService.TopStories (NYTimesApiKey);
+			TopStoriesResponse res = null;
+			try {
+				res = await this.RestService.TopStories (TopStoriesApiKey);	
+			} catch (Exception ex) {
+				// TODO: Do not handle all exceptions
+				// TODO: Implement error handling 
+				Debug.WriteLine ($"Loading error: {ex}");
+			}
+
 			return res;
 		}
 
 		public async Task<List<Article>> TopStories (TopStoriesCategory category)
 		{
 			var response = await this.RequestTopStories (category);
-			List<Article> articles = response.Results;
+			List<Article> articles = response != null ? response.Results : new List<Article> ();
 			return articles;
 		}
 

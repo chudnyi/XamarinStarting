@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using System.Diagnostics;
 using System.Windows.Input;
 
+
 namespace StartingPCL
 {
 	delegate void OnBindingContextChanged ();
@@ -14,6 +15,7 @@ namespace StartingPCL
 		Label subtitle = null;
 		Label timeLabel = null;
 
+
 		public ArticleRowViewCell ()
 		{
 			// Performance optimization
@@ -21,6 +23,8 @@ namespace StartingPCL
 			// no xaml, no bindings
 
 			image = new Image ();
+			//			image = new FFImageLoading.Forms.CachedImage ();
+
 			title = new Label () { 
 				TextColor = new OnPlatform<Color> () {
 					iOS = Color.FromHex ("#f35e20")
@@ -82,15 +86,11 @@ namespace StartingPCL
 			// Performance optimization
 			// https://developer.xamarin.com/guides/xamarin-forms/user-interface/listview/performance/#RecycleElement
 			var viewModel = BindingContext as ArticleViewModel;
-//			image.Source = viewModel != null ? viewModel.ListRowImageSource : null;
-//			title.Text = viewModel!= null ? viewModel.Title : null;
-//			subtitle.Text = viewModel!= null ? viewModel.Subtitle : null;
 
 			image.Source = viewModel?.ListRowImageSource;
 			title.Text = viewModel?.Title;
 			subtitle.Text = viewModel?.Subtitle;
 			timeLabel.Text = viewModel?.TimeText;
-
 		}
 
 		protected override void OnPropertyChanging (string propertyName)

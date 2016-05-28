@@ -55,6 +55,7 @@
     <Folder Include="News\Models\" />
     <Folder Include="News\Services\" />
     <Folder Include="Services\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="News\Views\NewsListPage.xaml">

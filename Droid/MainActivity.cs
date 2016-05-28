@@ -16,6 +16,8 @@ namespace Starting02.Droid
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
+//			FFImageLoading.Forms.Droid.CachedImageRenderer.Init();
+
 
 			global::Xamarin.Forms.Forms.Init (this, bundle);
 
