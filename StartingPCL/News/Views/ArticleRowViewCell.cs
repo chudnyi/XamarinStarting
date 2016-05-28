@@ -22,20 +22,24 @@ namespace StartingPCL
 
 			image = new Image ();
 			title = new Label () { 
-				TextColor=Color.FromHex("#f35e20"),
+				TextColor = new OnPlatform<Color> () {
+					iOS = Color.FromHex ("#f35e20")
+				},
 				LineBreakMode = LineBreakMode.TailTruncation
 			};
 			subtitle = new Label () { 
-				TextColor=Color.FromHex("#503026"),
+				TextColor = new OnPlatform<Color> () {
+					iOS = Color.FromHex ("#503026")
+				},
 				LineBreakMode = LineBreakMode.TailTruncation,
 				FontSize = 12
 			};
 
 			timeLabel = new Label () { 
-				TextColor=Color.FromHex("#B7B3B4"),
+				TextColor = Color.FromHex ("#B7B3B4"),
 				LineBreakMode = LineBreakMode.NoWrap,
 				FontSize = 12,
-				HorizontalOptions=LayoutOptions.StartAndExpand,
+				HorizontalOptions = LayoutOptions.StartAndExpand,
 			};
 
 			var bottomGrid = new Grid () {
@@ -66,7 +70,7 @@ namespace StartingPCL
 				}
 			};
 		}
-			
+
 		protected override void OnBindingContextChanged ()
 		{
 			base.OnBindingContextChanged ();
