@@ -6,6 +6,7 @@ using MvvmHelpers;
 using System.Linq.Expressions;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Reactive.Linq;
 
 // http://www.codeproject.com/Articles/252392/Create-MVVM-Background-Tasks-with-Progress-Reporti
 
@@ -28,10 +29,24 @@ namespace StartingPCL
 		{
 			this.Title = "NY Times";
 
+			var stateNewsSeq = App.Store
+				.DistinctUntilChanged (state => state.StateNews)
+				.Select (state => state.StateNews);
 
-			App.Store.Subscribe (state => {
-				var isBusy = state.StateNews.IsBusy;
-				Debug.WriteLine ($"[State changed] IsBusy = {isBusy}");
+			stateNewsSeq
+				.Select (state => state.IsBusy)
+				.DistinctUntilChanged ()
+				.Subscribe (val => {
+				this.IsBusy = val;
+			});
+				
+			stateNewsSeq
+				.DistinctUntilChanged (state => state.VisibleArticlesIds)
+				.Select (state => state.VisibleArticlesIds.Select (id => state.ArticlesById [id]))
+				.Select (articles => articles.Select (article => this.ViewModelsFactory.ArticleViewModel (article)))
+				.Subscribe (articleViewModels => {
+				this.Articles.Clear ();
+				this.Articles.AddRange (articleViewModels);
 			});
 		}
 
@@ -99,7 +114,8 @@ namespace StartingPCL
 			}
 		}
 
-		public void OnArticleSelected(ArticleViewModel articleViewModel) {
+		public void OnArticleSelected (ArticleViewModel articleViewModel)
+		{
 			if (articleViewModel == null)
 				throw new ArgumentNullException ("articleViewModel");
 

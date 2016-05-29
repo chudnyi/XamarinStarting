@@ -6,7 +6,7 @@ namespace StartingPCL
 	public class App : Application
 	{
 //		static int mainThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
-		public static Redux.Store<State> Store = new Redux.Store<State> (Reducer.Execute, new State());
+		public static Redux.IStore<State> Store = new Redux.Store<State> (Reducer.Execute, new State());
 
 
 		IRouter router { get; set; }
