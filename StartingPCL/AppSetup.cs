@@ -29,8 +29,12 @@ namespace StartingPCL
 			builder
 				.Register<ArticleViewModel> ((e, p) => new ArticleViewModel (p.Positional<Article> (0)));
 
-			builder
-				.Register<ActionsFactoryImpl> (e => new ActionsFactoryImpl ())
+//			builder
+//				.Register<ActionsFactoryImpl> (e => new ActionsFactoryImpl ())
+//				.As<IActionsFactory> ()
+//				.SingleInstance ();
+
+			builder.RegisterType<ActionsFactoryImpl> ()
 				.As<IActionsFactory> ()
 				.SingleInstance ();
 
@@ -44,20 +48,16 @@ namespace StartingPCL
 
 			builder
 				.Register (e => new NewsListViewModel (
-					e.Resolve<IRouter> (),
-					e.Resolve<IViewModelsFactory> (),
-					e.Resolve<IActionsFactory> ()
-				));
+				e.Resolve<IRouter> (),
+				e.Resolve<IViewModelsFactory> (),
+				e.Resolve<IActionsFactory> ()
+			));
 
 			container = builder.Build ();
 
 			// TODO: Remove bad code from AppSetup
 			ViewModelsFactoryImpl viewModelsFactory = (ViewModelsFactoryImpl)container.Resolve<IViewModelsFactory> ();
 			viewModelsFactory.Container = container;
-
-			ActionsFactoryImpl actionsFactory = (ActionsFactoryImpl)container.Resolve<IActionsFactory> ();
-			actionsFactory.Container = container;
-
 		}
 
 		public IRouter Router {

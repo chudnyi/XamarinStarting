@@ -19,12 +19,12 @@ namespace StartingPCL
 				.Where (value => !value);
 		}
 
-		public void OnAppearing ()
+		public virtual void OnAppearing ()
 		{
 			Active.OnNext (true);
 		}
 
-		public void OnDisappearing ()
+		public virtual void OnDisappearing ()
 		{
 			Active.OnNext (false);
 		}

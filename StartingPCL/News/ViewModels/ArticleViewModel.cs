@@ -98,7 +98,10 @@ namespace StartingPCL
 			Debug.WriteLine ($"[PrepareForReuseInListViewCell]...");
 
 			if (this.listRowImageSource != null) {
-				this.listRowImageSource.Cancel ();
+
+//				this.listRowImageSource.Cancel ();
+
+
 
 			}
 		}

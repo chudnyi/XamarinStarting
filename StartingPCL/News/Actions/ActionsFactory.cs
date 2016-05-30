@@ -8,7 +8,16 @@ namespace StartingPCL
 {
 	internal class ActionsFactoryImpl : IActionsFactory
 	{
-		public IContainer Container  { get; set;}
+		private readonly INewsService newsService;
+
+		public ActionsFactoryImpl (INewsService newsService)
+		{
+			if (newsService == null)
+				throw Error.ArgumentNull (nameof (newsService));
+
+			this.newsService = newsService;
+		}
+
 
 		public IAction CreateNewsFetchAction (TopStoriesCategory category)
 		{
@@ -17,11 +26,8 @@ namespace StartingPCL
 			};
 		}
 
-		public AsyncActionsCreator<State> NewsFetchActionAsync (TopStoriesCategory category)
+		public AsyncActionsCreator<State> NewsFetchActionAsync_1 (TopStoriesCategory category)
 		{
-			if (Container == null)
-				throw Error.PropertyNull (nameof (Container));
-
 			return async (dispatch, getState) => {
 
 				System.Diagnostics.Debug.WriteLine ("NewsFetchAction...");
@@ -40,5 +46,23 @@ namespace StartingPCL
 
 		}
 
-	}}
+		public AsyncActionsCreator<State> NewsFetchActionAsync (TopStoriesCategory category)
+		{
+			return async (dispatch, getState) => {
+				Log.Info ("NewsFetchAction...");
+				dispatch (new NewsFetchAction{ Category = category });
+
+				try {
+					var models = await this.newsService.TopStories (category);
+					Log.Info ($"NewsFetchSuccessAction... {models.Count}");
+
+					dispatch (new NewsFetchSuccessAction { Articles = models });
+				} catch (Exception ex) {
+					dispatch (new NewsFetchFailureAction { Error = ex });
+				}
+			};
+
+		}
+	}
+}
 

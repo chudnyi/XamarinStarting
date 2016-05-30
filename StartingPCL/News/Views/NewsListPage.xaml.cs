@@ -31,9 +31,10 @@ namespace StartingPCL
 			};
 
 			ToolbarItems.Add (new ToolbarItem {
-				Text = "Debug",
+				Text = "Load more",
 				Order = ToolbarItemOrder.Primary,
-				Command = new Command (DebugAction)
+//				Command = new Command (DebugAction)
+				Command = viewModel.LoadMoreCommand
 			});
 		}
 

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Reactive.Linq;
 
 // http://www.codeproject.com/Articles/252392/Create-MVVM-Background-Tasks-with-Progress-Reporti
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace StartingPCL
 {
@@ -27,7 +29,8 @@ namespace StartingPCL
 
 		public Article SelectedArticle { get; set; }
 
-//		public Action OnDisappearing{ get; private set; }
+		public ICommand LoadMoreCommand { get;}
+		private TopStoriesCategory Category { get;set;}
 
 		public NewsListViewModel (IRouter router, IViewModelsFactory viewModelsFactory, IActionsFactory actionsFactory)
 		{
@@ -44,6 +47,9 @@ namespace StartingPCL
 			this.Router = router;
 			this.ViewModelsFactory = viewModelsFactory;
 			this.ActionsFactory = actionsFactory;
+
+
+			LoadMoreCommand = new Command(_ => OnLoadMore());
 		}
 
 	
@@ -54,39 +60,68 @@ namespace StartingPCL
 			Log.Info ("[Finalize] {0}", this.GetType ().FullName);
 		}
 
-		private IDisposable storeSubscription;
-
-		public async void OnAppearing ()
+		public override void OnAppearing ()
 		{
-			Debug.WriteLine ("[NewsListViewModel] OnAppearing...");
 			base.OnAppearing ();
+			Debug.WriteLine ("[NewsListViewModel] OnAppearing...");
 
-			storeSubscription = App.Store
+			App.Store
 				.DistinctUntilChanged (s => s.StateNews)
-				.TakeUntil(Deactivated)
+				.TakeUntil (this.Deactivated)
 				.Subscribe (s => {
 				var news = s.StateNews;
 				this.IsBusy = news.IsBusy;
-				var mvs = news.VisibleArticlesIds
-						.Select (id => news.ArticlesById [id])
-						.Select (model => this.ViewModelsFactory.ArticleViewModel (model));
+				var models = news.VisibleArticlesIds
+						.Select (id => news.ArticlesById [id]);
 
-				this.Articles.Clear ();
-				this.Articles.AddRange (mvs);
-					Log.Info ("reset articleViewModels: {0} Title: {1}", this.Articles.Count, this.Title);
+					UpdateArticles(models);
+//				Log.Info ("reset articleViewModels: {0} Title: {1}", this.Articles.Count, this.Title);
 			});
 
 
 			if (this.ActionsFactory == null)
 				throw Error.PropertyNull (nameof (this.ActionsFactory));
 
-			await this.ActionsFactory.NewsFetchActionAsync (TopStoriesCategory.food).DispatchAsync ();
+			// request fetch articles
+			this.ActionsFactory.NewsFetchActionAsync (this.Category).DispatchAsync ();
+		}
 
+		private void UpdateArticles( IEnumerable<Article> articles ) 
+		{
+			if (articles == null)
+				throw Error.ArgumentNull (nameof (articles));
 
-			Debug.WriteLine ("[NewsListViewModel] NewsFetchActionAsync complete");
-//			if(this.Articles.Count == 0)
-//				this.FetchAllArticlesAsync ();
+			bool isEmpty = !articles.Any ();
+			if (isEmpty) {
+				return;
+			}
 
+			var ids = new HashSet<EntityId> (this.Articles.Select (vm => vm.Model.Id));
+			var newVModels = articles
+				.Where (model => !ids.Contains (model.Id))
+				.Select (model => this.ViewModelsFactory.ArticleViewModel (model));
+
+			// TODO: insert in begin of list
+			this.Articles.AddRange (newVModels);
+			this.Title = $"NY Times (Articles: {this.Articles.Count})";
+
+			var model1 = articles.First();
+			var model2 = this.Articles.First ().Model;
+
+			Log.Info ("model1: {0}", model1);
+			Log.Info ("model2: {0}", model2);
+		}
+
+		private void OnLoadMore() {
+
+			var nextCategory = Enum.GetValues (typeof(TopStoriesCategory))
+				.Cast<TopStoriesCategory> ()
+				.SkipWhile (e => e != this.Category)
+				.Skip (1)
+				.FirstOrDefault ();
+
+			this.Category = nextCategory;
+			this.ActionsFactory.NewsFetchActionAsync (this.Category).DispatchAsync ();
 
 		}
 			

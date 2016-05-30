@@ -32,9 +32,14 @@ namespace StartingPCL
 
 		async Task<TopStoriesResponse> RequestTopStories (TopStoriesCategory category)
 		{
+			Log.Info ("Request top stories: {0}", category.ToString ());
+//			TopStoriesResponse res = await this.RestService.TopStories (TopStoriesApiKey, category);	
+//			return res;
+
 			TopStoriesResponse res = null;
 			try {
-				res = await this.RestService.TopStories (TopStoriesApiKey);	
+				res = await this.RestService.TopStories (TopStoriesApiKey, category);	
+				return res;
 			} catch (Exception ex) {
 				// TODO: Do not handle all exceptions
 				// TODO: Implement error handling 

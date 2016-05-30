@@ -35,7 +35,11 @@ namespace StartingPCL
 			}
 		}
 
-
+		public override string ToString ()
+		{
+			return value;
+		}
+		
 	}
 }
 
