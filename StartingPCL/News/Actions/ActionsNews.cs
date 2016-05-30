@@ -42,9 +42,9 @@ namespace StartingPCL
 
 				System.Diagnostics.Debug.WriteLine ("NewsFetchSuccessAction...");
 				dispatch (new NewsFetchSuccessAction { Articles = new List<Article> { 
-						new Article () {Url = "1"}, 
-						new Article () {Url = "2"}, 
-						new Article ()  {Url = "3"}
+						new Article () { Url = "1" }, 
+						new Article () { Url = "2" }, 
+						new Article () { Url = "3" }
 					}
 				});
 			};

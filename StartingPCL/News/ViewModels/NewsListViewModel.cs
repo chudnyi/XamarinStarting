@@ -46,9 +46,14 @@ namespace StartingPCL
 				.Select (articles => articles.Select (article => this.ViewModelsFactory.ArticleViewModel (article)))
 				.Subscribe (articleViewModels => {
 				
-					this.Articles.Clear ();
-					this.Articles.AddRange (articleViewModels);
+				this.Articles.Clear ();
+				this.Articles.AddRange (articleViewModels);
 			});
+		}
+
+		~NewsListViewModel ()
+		{
+			Log.Info ("[Finalize] {0}", this.GetType ().FullName);
 		}
 
 		public async void OnAppearing ()
@@ -62,6 +67,8 @@ namespace StartingPCL
 			Debug.WriteLine ("[NewsListViewModel] NewsFetchActionAsync complete");
 //			if(this.Articles.Count == 0)
 //				this.FetchAllArticlesAsync ();
+
+
 		}
 
 		async Task FetchAllArticlesAsync ()
@@ -118,11 +125,10 @@ namespace StartingPCL
 		public void OnArticleSelected (ArticleViewModel articleViewModel)
 		{
 			if (articleViewModel == null)
-				throw new ArgumentNullException ("articleViewModel");
+				throw Error.ArgumentNull (nameof (articleViewModel));
 
 			this.Router.routeArticleDetailsPage (articleViewModel.Model);
 		}
-
 	}
 
 }

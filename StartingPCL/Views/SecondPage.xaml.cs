@@ -11,6 +11,11 @@ namespace StartingPCL
 		{
 			InitializeComponent ();
 		}
+
+		~SecondPage ()
+		{
+			Log.Info ("[Finalize] {0}", this.GetType ().FullName);
+		}
 	}
 }
 
