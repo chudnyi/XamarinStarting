@@ -53,3 +53,7 @@ OK + Открывается браузер
 
 - работал на маке в XamarinStudio (без решарпера)
 - стартовый экран с кнопкой перехода к новостям оставил, чтобы можно было пересоздавать список новостей
+
+ 
+
+![Redux](http://image.slidesharecdn.com/reactreduxintroduction-151124165017-lva1-app6891/95/react-redux-introduction-33-638.jpg?cb=1448383914)
