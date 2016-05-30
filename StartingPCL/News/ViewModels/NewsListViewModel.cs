@@ -20,6 +20,8 @@ namespace StartingPCL
 
 		public IViewModelsFactory ViewModelsFactory { get; set; }
 
+		public IActionsFactory ActionsFactory { get; set; }
+
 
 		public ObservableRangeCollection<ArticleViewModel> Articles { get; set; } = new ObservableRangeCollection<ArticleViewModel>();
 
@@ -60,8 +62,10 @@ namespace StartingPCL
 		{
 			Debug.WriteLine ("[NewsListViewModel] OnAppearing...");
 
-//			NewsActionCreator.CreateNewsFetchAction (TopStoriesCategory.food).Dispatch ();
-			await NewsActionCreator.NewsFetchActionAsync (TopStoriesCategory.food).DispatchAsync ();
+			if (this.ActionsFactory == null)
+				throw Error.PropertyNull (nameof (this.ActionsFactory));
+
+			await this.ActionsFactory.NewsFetchActionAsync (TopStoriesCategory.food).DispatchAsync ();
 
 
 			Debug.WriteLine ("[NewsListViewModel] NewsFetchActionAsync complete");

@@ -18,6 +18,13 @@ namespace StartingPCL
 		{
 			return new ArgumentException (string.Format (format, args), parameterName);
 		}
+
+		internal static Exception PropertyNull (string propertyName)
+		{
+			// TODO: Create special exception type PropertyNullException
+			return new InvalidOperationException (string.Format ("Unspecified property {0}", propertyName));
+		}
+
 	}
 }
 

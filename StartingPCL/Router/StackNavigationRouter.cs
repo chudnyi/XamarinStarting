@@ -89,7 +89,8 @@ namespace StartingPCL
 			return new NewsListViewModel {
 				NewsService = new NYTimesNewsService (),
 				Router = this,
-				ViewModelsFactory = this
+				ViewModelsFactory = this,
+				ActionsFactory = new ActionsFactory()
 			};
 		}
 	}

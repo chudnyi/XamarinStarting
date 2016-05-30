@@ -5,11 +5,13 @@ namespace StartingPCL
 {
 	public class App : Application
 	{
-//		static int mainThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
-		public static Redux.IStore<State> Store = new Redux.Store<State> (Reducer.Execute, new State());
+		//		static int mainThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
+		public static Redux.IStore<State> Store = new Redux.Store<State> (Reducer.Execute, new State ());
 
 
 		IRouter router { get; set; }
+
+		AppSetup appBuilder { get; set; }
 
 		public App ()
 		{
@@ -17,7 +19,8 @@ namespace StartingPCL
 //				return System.Threading.Thread.CurrentThread.ManagedThreadId == mainThreadId;
 //			};
 
-			this.router = new StackNavigationRouter ();
+			this.appBuilder = new AppSetup ();
+			this.router = this.appBuilder.Router;
 
 			// The root page of your application
 			MainPage = this.router.mainPage ();
