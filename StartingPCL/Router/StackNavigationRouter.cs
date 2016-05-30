@@ -53,9 +53,7 @@ namespace StartingPCL
 		public void routeNewsPage ()
 		{
 			var vm = this.ViewModelsFactory.NewsListViewModel ();
-			this.navigationPage.PushAsync (new StartingPCL.NewsListPage () {
-				ViewModel = vm
-			});
+			this.navigationPage.PushAsync (new StartingPCL.NewsListPage (vm));
 		}
 
 		public void routeArticleDetailsPage (Article model)

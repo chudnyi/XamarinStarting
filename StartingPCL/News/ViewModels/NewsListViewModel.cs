@@ -12,7 +12,7 @@ using System.Reactive.Linq;
 
 namespace StartingPCL
 {
-	public class NewsListViewModel : BaseViewModel
+	public class NewsListViewModel : ViewModelBase
 	{
 		public INewsService NewsService { get; set; }
 
@@ -27,40 +27,55 @@ namespace StartingPCL
 
 		public Article SelectedArticle { get; set; }
 
-		public NewsListViewModel ()
+//		public Action OnDisappearing{ get; private set; }
+
+		public NewsListViewModel (IRouter router, IViewModelsFactory viewModelsFactory, IActionsFactory actionsFactory)
 		{
-			this.Title = "NY Times";
+			instanceCounter++;
+			this.Title = $"NY Times #{instanceCounter}";
 
-			var stateNewsSeq = App.Store
-				.DistinctUntilChanged (state => state.StateNews)
-				.Select (state => state.StateNews);
+			if (router == null)
+				throw Error.ArgumentNull (nameof (router));
+			if (viewModelsFactory == null)
+				throw Error.ArgumentNull (nameof (viewModelsFactory));
+			if (actionsFactory == null)
+				throw Error.ArgumentNull (nameof (actionsFactory));
 
-			stateNewsSeq
-				.Select (state => state.IsBusy)
-				.DistinctUntilChanged ()
-				.Subscribe (val => {
-				this.IsBusy = val;
-			});
-				
-			stateNewsSeq
-				.DistinctUntilChanged (state => state.VisibleArticlesIds)
-				.Select (state => state.VisibleArticlesIds.Select (id => state.ArticlesById [id]))
-				.Select (articles => articles.Select (article => this.ViewModelsFactory.ArticleViewModel (article)))
-				.Subscribe (articleViewModels => {
-				
-				this.Articles.Clear ();
-				this.Articles.AddRange (articleViewModels);
-			});
+			this.Router = router;
+			this.ViewModelsFactory = viewModelsFactory;
+			this.ActionsFactory = actionsFactory;
 		}
+
+	
+		static int instanceCounter = 0;
 
 		~NewsListViewModel ()
 		{
 			Log.Info ("[Finalize] {0}", this.GetType ().FullName);
 		}
 
+		private IDisposable storeSubscription;
+
 		public async void OnAppearing ()
 		{
 			Debug.WriteLine ("[NewsListViewModel] OnAppearing...");
+			base.OnAppearing ();
+
+			storeSubscription = App.Store
+				.DistinctUntilChanged (s => s.StateNews)
+				.TakeUntil(Deactivated)
+				.Subscribe (s => {
+				var news = s.StateNews;
+				this.IsBusy = news.IsBusy;
+				var mvs = news.VisibleArticlesIds
+						.Select (id => news.ArticlesById [id])
+						.Select (model => this.ViewModelsFactory.ArticleViewModel (model));
+
+				this.Articles.Clear ();
+				this.Articles.AddRange (mvs);
+					Log.Info ("reset articleViewModels: {0} Title: {1}", this.Articles.Count, this.Title);
+			});
+
 
 			if (this.ActionsFactory == null)
 				throw Error.PropertyNull (nameof (this.ActionsFactory));
@@ -74,22 +89,22 @@ namespace StartingPCL
 
 
 		}
-
-		async Task FetchAllArticlesAsync ()
-		{
-			await this.FetchArticlesAsync (TopStoriesCategory.automobiles);
-			await this.FetchArticlesAsync (TopStoriesCategory.travel);
-			await this.FetchArticlesAsync (TopStoriesCategory.food);
-			await this.FetchArticlesAsync (TopStoriesCategory.sports);
-			await this.FetchArticlesAsync (TopStoriesCategory.arts);
-			await this.FetchArticlesAsync (TopStoriesCategory.technology);
-			await this.FetchArticlesAsync (TopStoriesCategory.business);
-			await this.FetchArticlesAsync (TopStoriesCategory.magazine);
-			await this.FetchArticlesAsync (TopStoriesCategory.realestate);
-			await this.FetchArticlesAsync (TopStoriesCategory.obituaries);
-			await this.FetchArticlesAsync (TopStoriesCategory.fashion);
-		}
-
+			
+		//		async Task FetchAllArticlesAsync ()
+		//		{
+		//			await this.FetchArticlesAsync (TopStoriesCategory.automobiles);
+		//			await this.FetchArticlesAsync (TopStoriesCategory.travel);
+		//			await this.FetchArticlesAsync (TopStoriesCategory.food);
+		//			await this.FetchArticlesAsync (TopStoriesCategory.sports);
+		//			await this.FetchArticlesAsync (TopStoriesCategory.arts);
+		//			await this.FetchArticlesAsync (TopStoriesCategory.technology);
+		//			await this.FetchArticlesAsync (TopStoriesCategory.business);
+		//			await this.FetchArticlesAsync (TopStoriesCategory.magazine);
+		//			await this.FetchArticlesAsync (TopStoriesCategory.realestate);
+		//			await this.FetchArticlesAsync (TopStoriesCategory.obituaries);
+		//			await this.FetchArticlesAsync (TopStoriesCategory.fashion);
+		//		}
+		//
 		async Task FetchArticlesAsync (TopStoriesCategory category)
 		{
 			if (this.IsBusy)

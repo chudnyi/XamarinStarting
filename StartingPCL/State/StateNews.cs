@@ -21,5 +21,11 @@ namespace StartingPCL
 			VisibleArticlesIds = other.VisibleArticlesIds;
 			IsBusy = other.IsBusy;
 		}
+
+		public override string ToString ()
+		{
+			return string.Format ("[StateNews: ArticlesById={0}, VisibleArticlesIds={1}, IsBusy={2}]", ArticlesById.Count, VisibleArticlesIds.Count, IsBusy);
+		}
+		
 	}
 }

@@ -8,35 +8,55 @@ namespace StartingPCL
 {
 	public partial class NewsListPage : ContentPage
 	{
-		public NewsListViewModel ViewModel { 
-			get { 
-				return (NewsListViewModel)this.BindingContext;
-			}
-			set { 
-				this.BindingContext = value;
-			}
-		}
+		NewsListViewModel ViewModel { get; }
 
-		public NewsListPage ()
+		public NewsListPage (NewsListViewModel viewModel)
 		{
 			InitializeComponent ();
+
+			ViewModel = viewModel;
+			this.BindingContext = viewModel;
+
 			this.listView.ItemTemplate = new DataTemplate (typeof(ArticleRowViewCell));
+			this.listView.ItemsSource = viewModel.Articles;
+
 
 			this.listView.ItemSelected += (sender, e) => {
-				if(e.SelectedItem == null) return;
+				if (e.SelectedItem == null)
+					return;
 
-				this.ViewModel.OnArticleSelected((ArticleViewModel)e.SelectedItem);
+				viewModel.OnArticleSelected ((ArticleViewModel)e.SelectedItem);
 
 				((ListView)sender).SelectedItem = null; // deselect row
 			};
+
+			ToolbarItems.Add (new ToolbarItem {
+				Text = "Debug",
+				Order = ToolbarItemOrder.Primary,
+				Command = new Command (DebugAction)
+			});
+		}
+
+		private void DebugAction ()
+		{
+			Log.Info ("DebugAction");
+
+			var itemsSource = this.listView.ItemsSource;
+			var articles = this.ViewModel.Articles;
+
+			Log.Info ("break");
 		}
 
 		protected override void OnAppearing ()
 		{
 			base.OnAppearing ();
-			System.Diagnostics.Debug.WriteLine ("OnAppearing...");
-
 			this.ViewModel?.OnAppearing ();
+		}
+
+		protected override void OnDisappearing ()
+		{
+			this.ViewModel?.OnDisappearing ();
+			base.OnDisappearing ();
 		}
 
 	}

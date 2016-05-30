@@ -34,14 +34,20 @@ namespace StartingPCL
 				.As<IActionsFactory> ()
 				.SingleInstance ();
 
-			builder
-				.Register (e => new NewsListViewModel () {
-				NewsService = e.Resolve<INewsService> (),
-				Router = e.Resolve<IRouter> (),
-				ViewModelsFactory = e.Resolve<IViewModelsFactory> (),
-				ActionsFactory = e.Resolve<IActionsFactory> ()
-			});
+//			builder
+//				.Register (e => new NewsListViewModel () {
+//				NewsService = e.Resolve<INewsService> (),
+//				Router = e.Resolve<IRouter> (),
+//				ViewModelsFactory = e.Resolve<IViewModelsFactory> (),
+//				ActionsFactory = e.Resolve<IActionsFactory> ()
+//			});
 
+			builder
+				.Register (e => new NewsListViewModel (
+					e.Resolve<IRouter> (),
+					e.Resolve<IViewModelsFactory> (),
+					e.Resolve<IActionsFactory> ()
+				));
 
 			container = builder.Build ();
 
