@@ -45,8 +45,9 @@ namespace StartingPCL
 				.Select (state => state.VisibleArticlesIds.Select (id => state.ArticlesById [id]))
 				.Select (articles => articles.Select (article => this.ViewModelsFactory.ArticleViewModel (article)))
 				.Subscribe (articleViewModels => {
-				this.Articles.Clear ();
-				this.Articles.AddRange (articleViewModels);
+				
+					this.Articles.Clear ();
+					this.Articles.AddRange (articleViewModels);
 			});
 		}
 

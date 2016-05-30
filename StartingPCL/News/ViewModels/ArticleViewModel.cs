@@ -43,7 +43,7 @@ namespace StartingPCL
 			get { 
 				if (imageUri == null) {
 					var images = this.Model.Multimedia;
-					var image = images?.Count != 0 ? images [0] : null;
+					var image = images != null && images.Count != 0 ? images [0] : null;
 					if (image != null) {
 						imageUri = new Uri (image.Url);
 					}
