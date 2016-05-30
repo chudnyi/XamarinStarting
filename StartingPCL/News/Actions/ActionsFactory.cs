@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using Redux;
 using System.Threading.Tasks;
+using Autofac;
 
 namespace StartingPCL
 {
-	internal class ActionsFactory : IActionsFactory
+	internal class ActionsFactoryImpl : IActionsFactory
 	{
+		public IContainer Container  { get; set;}
 
 		public IAction CreateNewsFetchAction (TopStoriesCategory category)
 		{
@@ -17,6 +19,9 @@ namespace StartingPCL
 
 		public AsyncActionsCreator<State> NewsFetchActionAsync (TopStoriesCategory category)
 		{
+			if (Container == null)
+				throw Error.PropertyNull (nameof (Container));
+
 			return async (dispatch, getState) => {
 
 				System.Diagnostics.Debug.WriteLine ("NewsFetchAction...");

@@ -9,14 +9,12 @@ namespace StartingPCL
 	/// Stack navigation router and application components factory.
 	/// TODO: Extract components factory logic to external class (single responsibility principe).
 	/// </summary>
-	public class StackNavigationRouter : IRouter, IViewModelsFactory
+	public class StackNavigationRouter : IRouter
 	{
 		private NavigationPage navigationPage { get; set; }
 
-		//		public StackNavigationRouter (NavigationPage navigationPage)
-		//		{
-		//			this.navigationPage = navigationPage;
-		//		}
+		public IViewModelsFactory ViewModelsFactory { get; set; }
+
 
 		public Task DisplayAlert (string title, string message, string cancel)
 		{
@@ -39,7 +37,7 @@ namespace StartingPCL
 		public Xamarin.Forms.Page mainPage ()
 		{
 			if (navigationPage == null) {
-				navigationPage = new NavigationPage (this.CreateMyFirstPage());
+				navigationPage = new NavigationPage (this.CreateMyFirstPage ());
 			}
 
 			return navigationPage;
@@ -54,8 +52,9 @@ namespace StartingPCL
 
 		public void routeNewsPage ()
 		{
+			var vm = this.ViewModelsFactory.NewsListViewModel ();
 			this.navigationPage.PushAsync (new StartingPCL.NewsListPage () {
-				ViewModel = this.NewsListViewModel ()
+				ViewModel = vm
 			});
 		}
 
@@ -63,34 +62,17 @@ namespace StartingPCL
 		{
 			if (model == null)
 				throw new ArgumentNullException ("model");
-			
+
+			var vm = this.ViewModelsFactory.ArticleViewModel (model);
 			this.navigationPage.PushAsync (new StartingPCL.ArticleDetailsPage () {
-				ViewModel = this.ArticleViewModel (model)
+				ViewModel = vm
 			});
 		}
 
-		private MyFirstPage CreateMyFirstPage() {
-			return new MyFirstPage() {
+		private MyFirstPage CreateMyFirstPage ()
+		{
+			return new MyFirstPage () {
 				Router = this
-			};
-		}
-
-		public ArticleViewModel ArticleViewModel (Article model)
-		{
-			if (model == null)
-				throw new ArgumentNullException ("model");
-
-			return new ArticleViewModel (model) {
-			};
-		}
-
-		public NewsListViewModel NewsListViewModel ()
-		{
-			return new NewsListViewModel {
-				NewsService = new NYTimesNewsService (),
-				Router = this,
-				ViewModelsFactory = this,
-				ActionsFactory = new ActionsFactory()
 			};
 		}
 	}

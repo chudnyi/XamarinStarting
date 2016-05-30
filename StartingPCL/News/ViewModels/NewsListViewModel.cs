@@ -23,7 +23,7 @@ namespace StartingPCL
 		public IActionsFactory ActionsFactory { get; set; }
 
 
-		public ObservableRangeCollection<ArticleViewModel> Articles { get; set; } = new ObservableRangeCollection<ArticleViewModel>();
+		public ObservableRangeCollection<ArticleViewModel> Articles { get; } = new ObservableRangeCollection<ArticleViewModel>();
 
 		public Article SelectedArticle { get; set; }
 

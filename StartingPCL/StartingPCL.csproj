@@ -67,6 +67,7 @@
     <Compile Include="News\Actions\ActionsFactory.cs" />
     <Compile Include="Actions\IActionsFactory.cs" />
     <Compile Include="AppSetup.cs" />
+    <Compile Include="ViewModels\ViewModelsFactoryImpl.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.2.0.31\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.2.0.31\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
@@ -85,6 +86,7 @@
     <Folder Include="Views\" />
     <Folder Include="News\Actions\" />
     <Folder Include="Models\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="News\Views\NewsListPage.xaml">
