@@ -21,6 +21,7 @@ namespace StartingPCL
 			ArticlesById = other.ArticlesById;
 			VisibleArticlesIds = other.VisibleArticlesIds;
 			IsBusy = other.IsBusy;
+			NumberOfNewArticles = other.NumberOfNewArticles;
 		}
 
 		public override string ToString ()
