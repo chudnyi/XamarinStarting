@@ -19,5 +19,9 @@ namespace StartingPCL
 	{
 		public Exception Error;
 	}
+
+	public class ShowNewArticlesAction: IAction
+	{
+	}
 }
 

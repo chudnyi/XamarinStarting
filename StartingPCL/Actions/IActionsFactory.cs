@@ -8,6 +8,8 @@ namespace StartingPCL
 		IAction CreateNewsFetchAction (TopStoriesCategory category);
 
 		AsyncActionsCreator<State> NewsFetchActionAsync (TopStoriesCategory category);
+
+		AsyncActionsCreator<State> ShowNewArticlesAsync ();
 	}
 }
 

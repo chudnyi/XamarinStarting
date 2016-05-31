@@ -30,10 +30,21 @@ namespace StartingPCL
 				((ListView)sender).SelectedItem = null; // deselect row
 			};
 
+
+			var showNewBtn = new ToolbarItem {
+				Text = "Show New",
+				Order = ToolbarItemOrder.Primary,
+				Command = viewModel.ShowNewArticlesCommand
+			};
+//			showNewBtn.SetBinding (ToolbarItem.TextProperty, nameof (viewModel.NumberOfNewArticlesText));
+
+			ToolbarItems.Add (showNewBtn);
+
+
+
 			ToolbarItems.Add (new ToolbarItem {
 				Text = "Load more",
 				Order = ToolbarItemOrder.Primary,
-//				Command = new Command (DebugAction)
 				Command = viewModel.LoadMoreCommand
 			});
 		}

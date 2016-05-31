@@ -63,6 +63,14 @@ namespace StartingPCL
 			};
 
 		}
+
+		public AsyncActionsCreator<State> ShowNewArticlesAsync ()
+		{
+			return async (dispatch, getState) => {
+				Log.Info ("ShowNewArticlesAsync...");
+				dispatch (new ShowNewArticlesAction ());
+			};
+		}
 	}
 }
 

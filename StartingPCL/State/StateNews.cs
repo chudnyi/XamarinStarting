@@ -11,7 +11,8 @@ namespace StartingPCL
 	{
 		public ImmutableDictionary<EntityId, Article> ArticlesById = ImmutableDictionary.Create<EntityId, Article>();
 		public ImmutableList<EntityId> VisibleArticlesIds =  ImmutableList.Create<EntityId>();
-		public bool IsBusy;
+		public bool IsBusy = false;
+		public int NumberOfNewArticles = 0;
 
 		public StateNews() {
 		}

@@ -16,14 +16,25 @@ namespace StartingPCL
 				};
 			} else if (action is NewsFetchSuccessAction) {
 				var success = action as NewsFetchSuccessAction;
-				var modelsMap = success.Articles.ToImmutableDictionary (model => model.Id);
-				modelsMap = state.ArticlesById.SetItems (modelsMap);
-				var ids = modelsMap.Keys.ToImmutableList ();
+				var articlesById = success.Articles.ToImmutableDictionary (model => model.Id);
+				// merge with current articles
+				articlesById = state.ArticlesById.SetItems (articlesById);
+
+				ImmutableList<EntityId> visibleIds;
+				int numberOfNewArticles = 0;
+				if (state.VisibleArticlesIds.Count == 0) {
+					visibleIds = articlesById.Keys.ToImmutableList ();
+					numberOfNewArticles = 0;
+				} else {
+					visibleIds = state.VisibleArticlesIds;
+					numberOfNewArticles = articlesById.Count - state.VisibleArticlesIds.Count;
+				}
 
 				return new StateNews (state) {
 					IsBusy = false,
-					ArticlesById = modelsMap,
-					VisibleArticlesIds =  ids
+					ArticlesById = articlesById,
+					VisibleArticlesIds = visibleIds,
+					NumberOfNewArticles = numberOfNewArticles
 				};
 			
 			} else if (action is NewsFetchFailureAction) {
@@ -31,6 +42,16 @@ namespace StartingPCL
 				return new StateNews (state) {
 					IsBusy = false
 				};
+			} else if (action is ShowNewArticlesAction) {
+				if (state.VisibleArticlesIds.Count != state.ArticlesById.Count) {
+					var newIds = state.ArticlesById.Keys
+						.Where (id => !state.VisibleArticlesIds.Contains (id));
+
+					return new StateNews (state) { 
+						VisibleArticlesIds =  state.VisibleArticlesIds.InsertRange (0, newIds),
+						NumberOfNewArticles = 0
+					};
+				}
 			}
 
 			return state;
