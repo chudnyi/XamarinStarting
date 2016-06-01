@@ -2,9 +2,9 @@
 
 namespace StartingPCL
 {
-	public struct EntityId
+	public class EntityId
 	{
-		private string value;
+		private readonly string value;
 
 		public EntityId (string aValue)
 		{
@@ -31,7 +31,7 @@ namespace StartingPCL
 		public override int GetHashCode ()
 		{
 			unchecked {
-				return (value != null ? value.GetHashCode () : 0);
+				return value?.GetHashCode () ?? 0;
 			}
 		}
 
