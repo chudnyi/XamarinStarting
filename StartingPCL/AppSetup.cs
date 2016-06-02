@@ -1,5 +1,6 @@
 ﻿using System;
 using Autofac;
+using StartingPCL.News.Services;
 
 namespace StartingPCL
 {
@@ -10,8 +11,11 @@ namespace StartingPCL
 		public AppSetup ()
 		{
 			var builder = new ContainerBuilder ();
+//			builder
+//				.RegisterType<NYTimesNewsService> ()
+//				.As<INewsService> ();
 			builder
-				.RegisterType<NYTimesNewsService> ()
+				.RegisterType<NewsServiceStatic> ()
 				.As<INewsService> ();
 
 			builder

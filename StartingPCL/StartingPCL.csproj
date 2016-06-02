@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -30,6 +30,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="News\Services\NewsServiceStatic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="News\Views\NewsListPage.xaml.cs">
       <DependentUpon>NewsListPage.xaml</DependentUpon>
@@ -73,23 +74,7 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.2.0.31\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.2.0.31\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
   <Import Project="..\packages\refit.2.4.1\build\portable-net45+netcore45+wp8+wpa81+monoandroid+xamarin.ios10\refit.targets" Condition="Exists('..\packages\refit.2.4.1\build\portable-net45+netcore45+wp8+wpa81+monoandroid+xamarin.ios10\refit.targets')" />
-  <ItemGroup>
-    <Folder Include="News\" />
-    <Folder Include="News\Views\" />
-    <Folder Include="News\ViewModels\" />
-    <Folder Include="News\Models\" />
-    <Folder Include="News\Services\" />
-    <Folder Include="Services\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="State\" />
-    <Folder Include="Actions\" />
-    <Folder Include="Router\" />
-    <Folder Include="Views\" />
-    <Folder Include="News\Actions\" />
-    <Folder Include="Models\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="ViewModelBase\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="News\Views\NewsListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -147,5 +132,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <EmbeddedResource Include="Resources\top-stories.json" />
   </ItemGroup>
 </Project>

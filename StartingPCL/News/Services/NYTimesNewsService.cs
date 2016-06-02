@@ -55,11 +55,6 @@ namespace StartingPCL
 			List<Article> articles = response != null ? response.Results : new List<Article> ();
 			return articles;
 		}
-
-		public Task<List<Article>> TopStories ()
-		{
-			return this.TopStories (TopStoriesCategory.home);
-		}
 	}
 }
 

@@ -40,7 +40,10 @@ namespace StartingPCL
 
 		private Uri imageUri;
 		public Uri ImageUri {
-			get { 
+			get
+			{
+			    return null; // disable images
+
 				if (imageUri == null) {
 					var images = this.Model.Multimedia;
 					var image = images != null && images.Count != 0 ? images [0] : null;

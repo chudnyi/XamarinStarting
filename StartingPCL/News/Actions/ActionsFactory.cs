@@ -56,7 +56,8 @@ namespace StartingPCL
 					var models = await this.newsService.TopStories (category);
 					Log.Info ($"NewsFetchSuccessAction... {models.Count}");
 
-					dispatch (new NewsFetchSuccessAction { Articles = models });
+
+                    dispatch (new NewsFetchSuccessAction { Articles = models });
 				} catch (Exception ex) {
 					dispatch (new NewsFetchFailureAction { Error = ex });
 				}
