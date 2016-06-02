@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:listView="clr-namespace:StartingPCL.ListView;assembly=StartingPCL"
+             x:Class="StartingPCL.ListView.BigListViewPage"
+             xmlns:gorilla="clr-namespace:UXDivers.Gorilla;assembly=UXDivers.Gorilla.Common"
+             xmlns:startingPcl="clr-namespace:StartingPCL;assembly=StartingPCL">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <listView:BigListViewModel x:Key="BigListViewModel">
+      </listView:BigListViewModel>
+
+      <Style x:Key="CellTitle" TargetType="Label">
+        <Setter Property="FontSize" Value="30"></Setter>
+      </Style>
+
+      <Style x:Key="BoxItemStyle" TargetType="StackLayout" >
+        <Setter Property="HeightRequest" Value="40"></Setter>
+        <Setter Property="WidthRequest" Value="40"></Setter>
+      </Style>
+      <Style x:Key="BoxLabel" TargetType="Label" >
+        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0.5,0.5,-1,-1"></Setter>
+        <Setter Property="AbsoluteLayout.LayoutFlags" Value="PositionProportional"></Setter>
+        <Setter Property="FontSize" Value="12"></Setter>
+      </Style>
+
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+
+  <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Blue">
+    <ListView RowHeight="120" ItemsSource="{Binding Source={StaticResource BigListViewModel}, Path=ItemsSource}">
+      <x:Arguments>
+        <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+      </x:Arguments>
+
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+
+            <StackLayout Padding="8" VerticalOptions="Center" BackgroundColor="Yellow">
+              <StackLayout  BackgroundColor="Silver" Padding="0,0,0,0" >
+                <Label Text="{Binding Title}" HorizontalOptions="Center" TextColor="Black" FontSize="15" />
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                  <!--                  <Image Source="StartingPCL.Resources.Images.ava1.png"></Image>-->
+                  <Image Source="{startingPcl:ImageResource StartingPCL.Resources.Images.kdrpp.png}" WidthRequest="40" HeightRequest="40" />
+                  <AbsoluteLayout BackgroundColor="Red">
+                    <BoxView BackgroundColor="Red"></BoxView>
+                    <Label Text="Red" Style="{StaticResource BoxLabel}"></Label>
+                  </AbsoluteLayout>
+                  <AbsoluteLayout BackgroundColor="Green" HeightRequest="40" WidthRequest="40">
+                    <Label Text="Green" Style="{StaticResource BoxLabel}" ></Label>
+                  </AbsoluteLayout>
+
+                  <AbsoluteLayout BackgroundColor="Blue" Style="{StaticResource BoxItemStyle}">
+                    <Label Text="Blue" Style="{StaticResource BoxLabel}" ></Label>
+                  </AbsoluteLayout>
+
+                  <!--                  <StackLayout BackgroundColor="Pink" Style="{StaticResource BoxItemStyle}"></StackLayout>-->
+                  <AbsoluteLayout BackgroundColor="Pink" Style="{StaticResource BoxItemStyle}">
+                    <Label Text="Pink" Style="{StaticResource BoxLabel}" ></Label>
+                  </AbsoluteLayout>
+
+                  <!--                  <StackLayout BackgroundColor="Aqua" Style="{StaticResource BoxItemStyle}"></StackLayout>-->
+                  <AbsoluteLayout BackgroundColor="Aqua" Style="{StaticResource BoxItemStyle}">
+                    <Label Text="Aqua" Style="{StaticResource BoxLabel}" ></Label>
+                  </AbsoluteLayout>
+
+                  <!--                  <StackLayout BackgroundColor="Fuchsia" Style="{StaticResource BoxItemStyle}"></StackLayout>-->
+                  <AbsoluteLayout BackgroundColor="Fuchsia" Style="{StaticResource BoxItemStyle}">
+                    <Label Text="Fuchsia" Style="{StaticResource BoxLabel}" ></Label>
+                  </AbsoluteLayout>
+
+                </StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand" BackgroundColor="Purple"></StackLayout>
+                <Label Text="Long text bottom with some description" FontSize="12" HorizontalOptions="Center" TextColor="Blue" ></Label>
+              </StackLayout>
+            </StackLayout>
+
+
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+
+    </ListView>
+  </StackLayout>
+
+
+</ContentPage>

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:startingPcl="clr-namespace:StartingPCL;assembly=StartingPCL"
+             x:Class="StartingPCL.News.Views.ArticleRow">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <startingPcl:Article Title="Article 1" x:Key="A1"/>
+      
+      <Style x:Key="BoxItemStyle" TargetType="StackLayout" >
+        <Setter Property="HeightRequest" Value="40"></Setter>
+        <Setter Property="WidthRequest" Value="40"></Setter>
+      </Style>
+      <Style x:Key="BoxLabel" TargetType="Label" >
+        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0.5,0.5,-1,-1"></Setter>
+        <Setter Property="AbsoluteLayout.LayoutFlags" Value="PositionProportional"></Setter>
+        <Setter Property="FontSize" Value="12"></Setter>
+        
+      </Style>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  
+  <ContentView BindingContext="{StaticResource A1}" Padding="0, 60, 0, 0" BackgroundColor="#f1f1f1">
+    
+    <StackLayout Padding="8" VerticalOptions="Center" BackgroundColor="Yellow">
+      <StackLayout  BackgroundColor="Silver" Padding="0,10,0,10" >
+        <Label Text="Some static article title" HorizontalOptions="Center" TextColor="Black" />
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+          
+          <AbsoluteLayout BackgroundColor="Red">
+            <BoxView BackgroundColor="Red"></BoxView>
+            <Label Text="Red" Style="{StaticResource BoxLabel}"></Label>
+          </AbsoluteLayout>
+          <AbsoluteLayout BackgroundColor="Green" HeightRequest="40" WidthRequest="40">
+            <Label Text="Green" Style="{StaticResource BoxLabel}" ></Label>
+          </AbsoluteLayout>
+
+          <AbsoluteLayout BackgroundColor="Blue" Style="{StaticResource BoxItemStyle}">
+            <Label Text="Blue" Style="{StaticResource BoxLabel}" ></Label>
+          </AbsoluteLayout>
+
+          <StackLayout BackgroundColor="Pink" Style="{StaticResource BoxItemStyle}"></StackLayout>
+          <StackLayout BackgroundColor="Aqua" Style="{StaticResource BoxItemStyle}"></StackLayout>
+          <StackLayout BackgroundColor="Fuchsia" Style="{StaticResource BoxItemStyle}"></StackLayout>
+        </StackLayout>
+        <Label Text="Long text bottom with some description" FontSize="12" HorizontalOptions="Center" TextColor="Blue" ></Label>
+      </StackLayout>
+    </StackLayout>
+    
+  </ContentView>
+  
+  
+  
+</ContentPage>

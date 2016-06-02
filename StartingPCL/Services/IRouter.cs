@@ -14,12 +14,13 @@ namespace StartingPCL
 
 		Xamarin.Forms.Page mainPage ();
 
-		void routeSecondPage ();
+		void RouteSecondPage ();
 
-		void routeNewsPage ();
+		void RouteNewsPage ();
 
-		void routeArticleDetailsPage (Article model);
+		void RouteArticleDetailsPage (Article model);
 
-	}
+        void RouteBigList();
+    }
 }
 

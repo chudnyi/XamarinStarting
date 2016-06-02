@@ -181,7 +181,7 @@ namespace StartingPCL
 			if (articleViewModel == null)
 				throw Error.ArgumentNull (nameof (articleViewModel));
 
-			this.Router.routeArticleDetailsPage (articleViewModel.Model);
+			this.Router.RouteArticleDetailsPage (articleViewModel.Model);
 		}
 	}
 

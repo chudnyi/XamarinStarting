@@ -25,5 +25,14 @@ namespace StartingPCL.News.Services
 
             return list;
         }
+        public List<Article> TopStoriesSync(TopStoriesCategory category)
+        {
+            var assembly = this.GetType().GetTypeInfo().Assembly;
+            var textStreamReader = new StreamReader(assembly.GetManifestResourceStream("StartingPCL.Resources.top-stories.json"));
+            var json = textStreamReader.ReadToEnd();
+            var list = JsonConvert.DeserializeObject<List<Article>>(json);
+
+            return list;
+        }
     }
 }

@@ -38,7 +38,7 @@ namespace StartingPCL
 			MainPage = this.router.mainPage ();
 			MainPage.BackgroundColor = Color.FromRgb (240, 240, 250);
 
-//			router.routeNewsPage ();
+//			router.RouteNewsPage ();
 		}
 
 		protected override void OnStart ()

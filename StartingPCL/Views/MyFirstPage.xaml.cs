@@ -15,16 +15,21 @@ namespace StartingPCL
 
 			this.btnPushMe.Clicked += BtnPushMe_Clicked;
 			this.btnNews.Clicked += BtnNews_Clicked;
+
+		    this.BigListButton.Clicked += (sender, args) =>
+		    {
+		        this.Router?.RouteBigList();
+		    };
 		}
 
 		void BtnNews_Clicked (object sender, EventArgs e)
 		{
-			this.Router?.routeNewsPage ();
+			this.Router?.RouteNewsPage ();
 		}
 
 		void BtnPushMe_Clicked (object sender, EventArgs e)
 		{
-			this.Router?.routeSecondPage ();
+			this.Router?.RouteSecondPage ();
 		}
 	}
 }

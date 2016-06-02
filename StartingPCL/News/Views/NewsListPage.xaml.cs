@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
@@ -27,7 +28,7 @@ namespace StartingPCL
 
 				viewModel.OnArticleSelected ((ArticleViewModel)e.SelectedItem);
 
-				((ListView)sender).SelectedItem = null; // deselect row
+				((Xamarin.Forms.ListView)sender).SelectedItem = null; // deselect row
 			};
 
 			ToolbarItems.Add (new ToolbarItem {
@@ -36,6 +37,9 @@ namespace StartingPCL
 //				Command = new Command (DebugAction)
 				Command = viewModel.LoadMoreCommand
 			});
+
+		    IList l;
+
 		}
 
 		private void DebugAction ()

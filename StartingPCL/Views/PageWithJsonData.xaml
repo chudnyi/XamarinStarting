@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+       xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StartingPCL.Views.PageWithJsonData"
+       
+       xmlns:gorilla="clr-namespace:UXDivers.Gorilla;assembly=UXDivers.Gorilla.Common"
+       xmlns:models="clr-namespace:StartingPCL;assembly=StartingPCL"
+       xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+       xmlns:visualBasic="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+     
+<!--      <x:Array Type="{x:Type models:Article}" x:Key="Articles">-->
+<!--        <models:Article Url="a1" Title="Article 1"></models:Article>-->
+<!--      </x:Array>-->
+      <x:Array Type="{x:Type sys:String}" x:Key="Strings">
+        <sys:String>First string</sys:String>
+        <sys:String>Second string</sys:String>
+        
+      </x:Array>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <ContentPage.Content>
+    <ListView ItemsSource="{StaticResource Strings}">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            
+          <StackLayout>
+            <Label Text="{Binding .}" VerticalOptions="Center" />
+<!--            <Label Text="{Binding Age}" VerticalOptions="Center" Grid.Column="2"/>-->
+<!--            <Image Source="{Binding Photo}" HorizontalOptions="Center" Grid.Column="3"/>-->
+            
+
+          </StackLayout>            
+            
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </ContentPage.Content>
+</ContentPage>
+

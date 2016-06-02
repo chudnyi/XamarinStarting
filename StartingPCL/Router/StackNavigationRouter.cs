@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using StartingPCL;
+using StartingPCL.ListView;
 
 namespace StartingPCL
 {
@@ -43,20 +44,20 @@ namespace StartingPCL
 			return navigationPage;
 		}
 
-		public void routeSecondPage ()
+		public void RouteSecondPage ()
 		{
 			this.navigationPage.PushAsync (new SecondPage {
 				Title = "Second"
 			});
 		}
 
-		public void routeNewsPage ()
+		public void RouteNewsPage ()
 		{
 			var vm = this.ViewModelsFactory.NewsListViewModel ();
 			this.navigationPage.PushAsync (new StartingPCL.NewsListPage (vm));
 		}
 
-		public void routeArticleDetailsPage (Article model)
+		public void RouteArticleDetailsPage (Article model)
 		{
 			if (model == null)
 				throw new ArgumentNullException ("model");
@@ -73,6 +74,12 @@ namespace StartingPCL
 				Router = this
 			};
 		}
+
+	    public void RouteBigList()
+	    {
+	        var page = new BigListViewPage();
+	        this.navigationPage.PushAsync(page);
+	    }
 	}
 }
 

@@ -30,7 +30,16 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BigListView\BigListViewModel.cs" />
+    <Compile Include="Helpers\ImageResourceExtension .cs" />
+    <Compile Include="ListViewSupport\ListViewItemsSource.cs" />
+    <Compile Include="BigListView\BigListViewPage.xaml.cs">
+      <DependentUpon>BigListViewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="News\Services\NewsServiceStatic.cs" />
+    <Compile Include="News\Views\ArticleRow.xaml.cs">
+      <DependentUpon>ArticleRow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="News\Views\NewsListPage.xaml.cs">
       <DependentUpon>NewsListPage.xaml</DependentUpon>
@@ -57,6 +66,9 @@
     <Compile Include="Views\MyFirstPage.xaml.cs">
       <DependentUpon>..\..\StartingShared\Views\MyFirstPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PageWithJsonData.xaml.cs">
+      <DependentUpon>PageWithJsonData.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SecondPage.xaml.cs">
       <DependentUpon>..\..\StartingShared\Views\SecondPage.xaml</DependentUpon>
     </Compile>
@@ -74,7 +86,12 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.2.0.31\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.2.0.31\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
   <Import Project="..\packages\refit.2.4.1\build\portable-net45+netcore45+wp8+wpa81+monoandroid+xamarin.ios10\refit.targets" Condition="Exists('..\packages\refit.2.4.1\build\portable-net45+netcore45+wp8+wpa81+monoandroid+xamarin.ios10\refit.targets')" />
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="BigListView\BigListViewPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="News\Views\NewsListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -117,6 +134,10 @@
     <Reference Include="Refit">
       <HintPath>..\packages\refit.2.4.1\lib\Portable-Net45+NetCore45+WP8+WPA81\Refit.dll</HintPath>
     </Reference>
+    <Reference Include="UXDivers.Gorilla.Common, Version=0.9.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UXDivers.GorillaPlayer.Common.0.9.0.3\lib\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\UXDivers.Gorilla.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core">
       <HintPath>..\packages\Xamarin.Forms.2.2.0.31\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
@@ -133,5 +154,23 @@
   <ItemGroup>
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\top-stories.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\PageWithJsonData.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="News\Views\ArticleRow.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Images\ava1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Images\kdrpp.png" />
   </ItemGroup>
 </Project>
