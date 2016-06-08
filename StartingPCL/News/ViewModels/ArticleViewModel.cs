@@ -24,7 +24,6 @@ namespace StartingPCL
 		public ICommand ReadMoreCommand { get;}
 	    public string BackgroundImageName { get; set; }
         public int Index { get; set; }
-        public string AvatarImageName { set; get; }
 
         public IImageService AvatarImageService;
 
@@ -126,5 +125,21 @@ namespace StartingPCL
 			}
 
 		}
+
+        private string avatarImageName;
+        public string AvatarImageName
+        {
+            get
+            {
+                if (avatarImageName == null)
+                {
+                    var avaIndex = this.Index%100 + 1;
+                    
+                    avatarImageName = $"StartingPCL.Resources.avatars.avatar-{avaIndex:0000}.jpg";
+//                    avatarImageName = $"StartingPCL.Resources.avatars.avatar-{avaIndex:0000}.jpg";
+                }
+                return avatarImageName;
+            }
+        }
 	}
 }

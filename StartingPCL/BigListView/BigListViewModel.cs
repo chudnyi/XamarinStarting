@@ -101,15 +101,31 @@ namespace StartingPCL.ListView
                     }
                 case "ListOneAvatarForEachRowAsyncDelay":
                     {
-                        return new AvatarImageService((name, size) =>
-                        {
-                            var t = Task<ImageSource>.Factory.StartNew(() =>
-                            {
-                                Task.Delay(1000).Wait();
-                                return ImageSource.FromFile("kdrpp40.png");
-                            });
+                        int loadingCounter = 0;
 
-                            return t;
+                        return new AvatarImageService(async (name, size) =>
+                        {
+                            //                            var t = Task<ImageSource>.Factory.StartNew(() =>
+                            //                            {
+                            //                                loadingCounter += 1;
+                            //                                Task.Delay(1000).Wait();
+                            //                                loadingCounter -= 1;
+                            //                                return ImageSource.FromResource(name);
+                            //                            });
+                            //                            return t;
+                            loadingCounter += 1;
+                            var res = await Task<ImageSource>.Factory.StartNew(() =>
+                            {
+                                
+                                Task.Delay(1000).Wait();
+                                
+                                return ImageSource.FromResource(name);
+                            });
+                            loadingCounter -= 1;
+
+                            Log.Info("Number of loading images: {0}", loadingCounter);
+
+                            return res;
                         });
                     }
                 default:
