@@ -87,8 +87,31 @@ namespace StartingPCL.ListView
             switch (mode)
             {
                 case "ListSingleStaticAvatar":
-                    var imageSource = ImageSource.FromFile("kdrpp40.png");
-                    return new AvatarImageService((name, size) => imageSource, false);
+                    {
+                        var imageSource = ImageSource.FromFile("kdrpp40.png");
+                        return new AvatarImageService((name, size) => imageSource);
+                    }
+                case "ListOneAvatarForEachRow":
+                    {
+                        return new AvatarImageService((name, size) => ImageSource.FromFile("kdrpp40.png"));
+                    }
+                case "ListOneAvatarForEachRowAsync":
+                    {
+                        return new AvatarImageService((name, size) => Task<ImageSource>.Factory.StartNew(() => ImageSource.FromFile("kdrpp40.png")));
+                    }
+                case "ListOneAvatarForEachRowAsyncDelay":
+                    {
+                        return new AvatarImageService((name, size) =>
+                        {
+                            var t = Task<ImageSource>.Factory.StartNew(() =>
+                            {
+                                Task.Delay(1000).Wait();
+                                return ImageSource.FromFile("kdrpp40.png");
+                            });
+
+                            return t;
+                        });
+                    }
                 default:
                     throw new ArgumentException($"Unexpected mode: {mode}", nameof(mode));
             }

@@ -4,6 +4,9 @@
     <StackLayout Spacing="20" VerticalOptions="Center" HorizontalOptions="Center">
       <Button Text="Read News" Clicked="BtnNews_Clicked"/>
       <Button Text="ListSingleStaticAvatar" CommandParameter="ListSingleStaticAvatar" Command="{Binding BigListCommand}" />
+      <Button Text="ListOneAvatarForEachRow" CommandParameter="ListOneAvatarForEachRow" Command="{Binding BigListCommand}" />
+      <Button Text="ListOneAvatarForEachRowAsync" CommandParameter="ListOneAvatarForEachRowAsync" Command="{Binding BigListCommand}" />
+      <Button Text="ListOneAvatarForEachRowAsyncDelay" CommandParameter="ListOneAvatarForEachRowAsyncDelay" Command="{Binding BigListCommand}" />
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>

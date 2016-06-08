@@ -31,6 +31,8 @@ namespace StartingPCL.ListView
             }
             else
             {
+                avatarImage.Source = null;
+
                 var imgSrc = await viewModel.AvatarImageService.ImageWithNameAndSizeAsync(viewModel.AvatarImageName, avatarImage.Bounds.Size);
                 if (this.BindingContext == viewModel)
                 {

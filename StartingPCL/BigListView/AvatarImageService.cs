@@ -5,16 +5,26 @@ using Xamarin.Forms;
 
 namespace StartingPCL.ListView
 {
+    public delegate ImageSource ImageSourceFactoryMethod(string name, Size size);
+    public delegate Task<ImageSource> ImageSourceFactoryMethodAsync(string name, Size size);
+
+
+
     public class AvatarImageService : IImageService
     {
         private readonly ImageSourceFactoryMethod FactoryMethod;
+        private readonly ImageSourceFactoryMethodAsync FactoryMethodAsync;
 
-        public AvatarImageService(ImageSourceFactoryMethod factoryMethod, bool asyncAllowed)
+        public AvatarImageService(ImageSourceFactoryMethod factoryMethod)
         {
             Debug.Assert(factoryMethod != null);
-
             FactoryMethod = factoryMethod;
-            ImageWithNameAndSizeAsyncAllowed = asyncAllowed;
+        }
+
+        public AvatarImageService(ImageSourceFactoryMethodAsync factoryMethodAsync)
+        {
+            Debug.Assert(factoryMethodAsync != null);
+            FactoryMethodAsync = factoryMethodAsync;
         }
 
         public ImageSource ImageWithNameAndSize(string name, Size size)
@@ -24,12 +34,9 @@ namespace StartingPCL.ListView
 
         public Task<ImageSource> ImageWithNameAndSizeAsync(string name, Size size)
         {
-            if(!ImageWithNameAndSizeAsyncAllowed)
-                throw new InvalidOperationException($"Not support async method");
-
-            return Task<ImageSource>.Factory.StartNew(() => ImageWithNameAndSize(name, size));
+            return this.FactoryMethodAsync(name, size);
         }
 
-        public bool ImageWithNameAndSizeAsyncAllowed { get; }
+        public bool ImageWithNameAndSizeAsyncAllowed => FactoryMethodAsync != null;
     }
 }

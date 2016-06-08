@@ -11,8 +11,6 @@ using StartingPCL.ListView;
 
 namespace StartingPCL
 {
-    public delegate ImageSource ImageSourceFactoryMethod(string name, Size size);
-
 
     public class ArticleViewModel : BaseViewModel
 	{

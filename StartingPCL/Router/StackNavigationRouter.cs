@@ -78,11 +78,8 @@ namespace StartingPCL
 
         public void RouteBigList(string mode)
         {
-            
-
             var vm = new BigListViewModel()
             {
-                
                 AvatarImageService = BigListViewModel.ImageServiceWithMode(mode)
             };
 
@@ -91,4 +88,3 @@ namespace StartingPCL
         }
     }
 }
-
