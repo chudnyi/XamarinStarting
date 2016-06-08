@@ -5,11 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using StartingPCL.ListView;
 
 namespace StartingPCL
 {
-	public class ArticleViewModel : BaseViewModel
+    public delegate ImageSource ImageSourceFactoryMethod(string name, Size size);
+
+
+    public class ArticleViewModel : BaseViewModel
 	{
 		public Article Model { get; private set; }
 
@@ -19,8 +24,14 @@ namespace StartingPCL
 		public string SectionText { get; }
 		public string SubsectionText { get; }
 		public ICommand ReadMoreCommand { get;}
+	    public string BackgroundImageName { get; set; }
+        public int Index { get; set; }
+        public string AvatarImageName { set; get; }
 
-		public ArticleViewModel (Article article)
+        public IImageService AvatarImageService;
+
+
+        public ArticleViewModel (Article article)
 		{
 			this.Model = article;
 
@@ -36,9 +47,9 @@ namespace StartingPCL
 			this.SubsectionText = article.Subsection != null ? string.Format("Subsection: {0}", article.Subsection) : null;
 
 			this.ReadMoreCommand = new Command (OnReadMore);
-		}
+        }
 
-		private Uri imageUri;
+        private Uri imageUri;
 		public Uri ImageUri {
 			get
 			{

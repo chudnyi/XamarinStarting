@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using StartingPCL.ListViewSupport;
 using StartingPCL.News.Services;
+using Xamarin.Forms;
 
 namespace StartingPCL.ListView
 {
@@ -11,17 +12,18 @@ namespace StartingPCL.ListView
         public ListViewItemsSource<ArticleViewModel> ItemsSource { get; }
         private ArticleViewModel LoadingItemViewModel { get; }
         private Dictionary<int, ArticleViewModel> ViewModelsCache { get; } = new Dictionary<int, ArticleViewModel>();
-//        private List<Article> Articles { get;  }
+        //        private List<Article> Articles { get;  }
+        public IImageService AvatarImageService;
 
         public BigListViewModel()
         {
             var newsService = new NewsServiceStatic();
             var articles = newsService.TopStoriesSync(TopStoriesCategory.home);
-//            Articles = articles;
+            //            Articles = articles;
             ItemsSource = new ListViewItemsSource<ArticleViewModel>(articles.Count);
-//            ItemsSource.ItemAtIndex = ItemViewModelAtIndex;
-//            ItemsSource.ItemAtIndex = CreateItemViewModelAtIndex;
-            ItemsSource.ItemAtIndex = index => new ArticleViewModel(articles[index]);
+            //            ItemsSource.ItemAtIndex = ItemViewModelAtIndex;
+            ItemsSource.ItemAtIndex = CreateItemViewModelAtIndex;
+            //            ItemsSource.ItemAtIndex = index => new ArticleViewModel(articles[index]);
 
             LoadingItemViewModel = new ArticleViewModel(new Article()
             {
@@ -60,7 +62,7 @@ namespace StartingPCL.ListView
         private ArticleViewModel CreateItemViewModelAtIndex(int index)
         {
             Log.Info($"creating item for index: {index}");
-//            Task.Delay(1000).Wait();
+            //            Task.Delay(1000).Wait();
 
             var model = new Article()
             {
@@ -68,11 +70,28 @@ namespace StartingPCL.ListView
                 Title = $"Article #{index}"
             };
 
-            var viewModel = new ArticleViewModel(model);
-            
+            var imageIndex = (index % 7) + 1;
+            var viewModel = new ArticleViewModel(model)
+            {
+                Index = index,
+                BackgroundImageName = $"StartingPCL.Resources.Images.bg{imageIndex}.jpg",
+                AvatarImageService = AvatarImageService
+            };
+
             Log.Info($"created item for index: {index} {viewModel.Model.Id}");
             return viewModel;
         }
 
+        public static IImageService ImageServiceWithMode(string mode)
+        {
+            switch (mode)
+            {
+                case "ListSingleStaticAvatar":
+                    var imageSource = ImageSource.FromFile("kdrpp40.png");
+                    return new AvatarImageService((name, size) => imageSource, false);
+                default:
+                    throw new ArgumentException($"Unexpected mode: {mode}", nameof(mode));
+            }
+        }
     }
 }

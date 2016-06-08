@@ -30,7 +30,10 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BigListView\AvatarImageService.cs" />
+    <Compile Include="BigListView\BigListCell.cs" />
     <Compile Include="BigListView\BigListViewModel.cs" />
+    <Compile Include="BigListView\IImageService.cs" />
     <Compile Include="Helpers\ImageResourceExtension .cs" />
     <Compile Include="ListViewSupport\ListViewItemsSource.cs" />
     <Compile Include="BigListView\BigListViewPage.xaml.cs">
@@ -66,6 +69,7 @@
     <Compile Include="Views\MyFirstPage.xaml.cs">
       <DependentUpon>..\..\StartingShared\Views\MyFirstPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MyFirstPageViewModel.cs" />
     <Compile Include="Views\PageWithJsonData.xaml.cs">
       <DependentUpon>PageWithJsonData.xaml</DependentUpon>
     </Compile>
@@ -172,5 +176,17 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Images\kdrpp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\avatars\avatar-0001.jpg" />
+    <EmbeddedResource Include="Resources\avatars\avatar-0002.jpg" />
+    <EmbeddedResource Include="Resources\avatars\avatar-0003.jpg" />
+    <EmbeddedResource Include="Resources\avatars\avatar-0004.jpg" />
+    <EmbeddedResource Include="Resources\avatars\avatar-0005.jpg" />
+    <EmbeddedResource Include="Resources\avatars\avatar-0006.jpg" />
+    <EmbeddedResource Include="Resources\avatars\avatar-0007.jpg" />
+    <EmbeddedResource Include="Resources\avatars\avatar-0008.jpg" />
+    <EmbeddedResource Include="Resources\avatars\avatar-0009.jpg" />
+    <EmbeddedResource Include="Resources\avatars\avatar-0010.jpg" />
   </ItemGroup>
 </Project>

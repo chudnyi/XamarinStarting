@@ -10,11 +10,16 @@ namespace StartingPCL.ListView
 {
     public partial class BigListViewPage : ContentPage
     {
-        public BigListViewPage()
+        public BigListViewModel ViewModel { get; set; }
+
+
+        public BigListViewPage(BigListViewModel viewModel)
         {
+            
             InitializeComponent();
 
-            
+            ViewModel = viewModel;
+            this.BindingContext = viewModel;
         }
     }
 }

@@ -1,36 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Input;
 using Xamarin.Forms;
 using StartingPCL;
+using StartingPCL.Views;
 
 namespace StartingPCL
 {
 	public partial class MyFirstPage : ContentPage
 	{
-		public IRouter Router { get; set; }
+		public IRouter Router { get; }
 
-		public MyFirstPage ()
-		{
-			InitializeComponent ();
+	    
 
-			this.btnPushMe.Clicked += BtnPushMe_Clicked;
-			this.btnNews.Clicked += BtnNews_Clicked;
 
-		    this.BigListButton.Clicked += (sender, args) =>
-		    {
-		        this.Router?.RouteBigList();
-		    };
-		}
+        public MyFirstPage (IRouter router)
+        {
+            this.Router = router;
 
-		void BtnNews_Clicked (object sender, EventArgs e)
+
+            this.BindingContext = new MyFirstPageViewModel()
+            {
+                Router = router
+            };
+
+            InitializeComponent ();
+        }
+
+
+	    void BtnNews_Clicked (object sender, EventArgs e)
 		{
 			this.Router?.RouteNewsPage ();
 		}
 
-		void BtnPushMe_Clicked (object sender, EventArgs e)
-		{
-			this.Router?.RouteSecondPage ();
-		}
 	}
 }
 

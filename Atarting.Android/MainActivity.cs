@@ -11,7 +11,7 @@ namespace Starting.Android
     [Activity(Label = "Starting.Android", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
     {
-        int count = 1;
+//        int count = 1;
 
         /*
                 protected override void OnCreate(Bundle bundle)

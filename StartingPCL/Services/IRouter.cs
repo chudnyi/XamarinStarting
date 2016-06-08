@@ -20,7 +20,7 @@ namespace StartingPCL
 
 		void RouteArticleDetailsPage (Article model);
 
-        void RouteBigList();
+        void RouteBigList(string mode);
     }
 }
 

@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="StartingPCL.MyFirstPage">
-	<ContentPage.Content>
-		<StackLayout Spacing="20" VerticalOptions="Center" HorizontalOptions="Center">
-			<Button Text="Push Me" x:Name="btnPushMe" />
-			<Button Text="Big list" x:Name="BigListButton"/>
-      <Button Text="Read News" x:Name="btnNews" WidthRequest="200" />
-		</StackLayout>
-	</ContentPage.Content>
+  <ContentPage.Content>
+    <StackLayout Spacing="20" VerticalOptions="Center" HorizontalOptions="Center">
+      <Button Text="Read News" Clicked="BtnNews_Clicked"/>
+      <Button Text="ListSingleStaticAvatar" CommandParameter="ListSingleStaticAvatar" Command="{Binding BigListCommand}" />
+    </StackLayout>
+  </ContentPage.Content>
 </ContentPage>

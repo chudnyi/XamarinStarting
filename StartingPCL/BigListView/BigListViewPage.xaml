@@ -29,56 +29,78 @@
 
 
   <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Blue">
-    <ListView RowHeight="120" ItemsSource="{Binding Source={StaticResource BigListViewModel}, Path=ItemsSource}">
+<!--    <ListView RowHeight="120" ItemsSource="{Binding Source={StaticResource BigListViewModel}, Path=ItemsSource}">-->
+    <ListView RowHeight="120" ItemsSource="{Binding ItemsSource}">
       <x:Arguments>
         <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
       </x:Arguments>
 
       <ListView.ItemTemplate>
         <DataTemplate>
-          <ViewCell>
+          <listView:BigListCell>
 
-            <StackLayout Padding="8" VerticalOptions="Center" BackgroundColor="Yellow">
-              <StackLayout  BackgroundColor="Silver" Padding="0,0,0,0" >
-                <Label Text="{Binding Title}" HorizontalOptions="Center" TextColor="Black" FontSize="15" />
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                  <!--                  <Image Source="StartingPCL.Resources.Images.ava1.png"></Image>-->
-                  <Image Source="{startingPcl:ImageResource StartingPCL.Resources.Images.kdrpp.png}" WidthRequest="40" HeightRequest="40" />
-                  <AbsoluteLayout BackgroundColor="Red">
-                    <BoxView BackgroundColor="Red"></BoxView>
-                    <Label Text="Red" Style="{StaticResource BoxLabel}"></Label>
-                  </AbsoluteLayout>
-                  <AbsoluteLayout BackgroundColor="Green" HeightRequest="40" WidthRequest="40">
-                    <Label Text="Green" Style="{StaticResource BoxLabel}" ></Label>
-                  </AbsoluteLayout>
+            <RelativeLayout>
 
-                  <AbsoluteLayout BackgroundColor="Blue" Style="{StaticResource BoxItemStyle}">
-                    <Label Text="Blue" Style="{StaticResource BoxLabel}" ></Label>
-                  </AbsoluteLayout>
+<!--              Source="{startingPcl:ImageResource Source={Binding BackgroundImageName}}"-->
+<!--
+              <Image x:Name="bgImage" Opacity="1" Aspect="Fill"
+                  RelativeLayout.WidthConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                  RelativeLayout.HeightConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Height}"/>
+-->
 
-                  <!--                  <StackLayout BackgroundColor="Pink" Style="{StaticResource BoxItemStyle}"></StackLayout>-->
-                  <AbsoluteLayout BackgroundColor="Pink" Style="{StaticResource BoxItemStyle}">
-                    <Label Text="Pink" Style="{StaticResource BoxLabel}" ></Label>
-                  </AbsoluteLayout>
+              <StackLayout Padding="8" VerticalOptions="Center" BackgroundColor="White"
+                           RelativeLayout.WidthConstraint ="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}"
+                             >
+                <StackLayout Padding="0,0,0,0" >
+                  <Label Text="{Binding Title}" HorizontalOptions="Center" TextColor="Black" FontSize="15" />
+                  <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <!--                  <Image Source="StartingPCL.Resources.Images.ava1.png"></Image>-->
+<!--                    <Image Source="{startingPcl:ImageResource StartingPCL.Resources.Images.kdrpp.png}" WidthRequest="40" HeightRequest="40" />-->
+<!--                    <Image x:Name="avatarImage" WidthRequest="40" HeightRequest="40" />-->
+                    <Image x:Name="avatarImage" WidthRequest="40" HeightRequest="40" BackgroundColor="Silver" />
+                    
+                    <AbsoluteLayout BackgroundColor="Red">
+                      <BoxView BackgroundColor="Red"></BoxView>
+                      <Label Text="Red" Style="{StaticResource BoxLabel}"></Label>
+                    </AbsoluteLayout>
+                    <AbsoluteLayout BackgroundColor="Green" HeightRequest="40" WidthRequest="40">
+                      <Label Text="Green" Style="{StaticResource BoxLabel}" ></Label>
+                    </AbsoluteLayout>
 
-                  <!--                  <StackLayout BackgroundColor="Aqua" Style="{StaticResource BoxItemStyle}"></StackLayout>-->
-                  <AbsoluteLayout BackgroundColor="Aqua" Style="{StaticResource BoxItemStyle}">
-                    <Label Text="Aqua" Style="{StaticResource BoxLabel}" ></Label>
-                  </AbsoluteLayout>
+                    <AbsoluteLayout BackgroundColor="Blue" Style="{StaticResource BoxItemStyle}">
+                      <Label Text="Blue" Style="{StaticResource BoxLabel}" ></Label>
+                    </AbsoluteLayout>
 
-                  <!--                  <StackLayout BackgroundColor="Fuchsia" Style="{StaticResource BoxItemStyle}"></StackLayout>-->
-                  <AbsoluteLayout BackgroundColor="Fuchsia" Style="{StaticResource BoxItemStyle}">
-                    <Label Text="Fuchsia" Style="{StaticResource BoxLabel}" ></Label>
-                  </AbsoluteLayout>
+                    <!--                  <StackLayout BackgroundColor="Pink" Style="{StaticResource BoxItemStyle}"></StackLayout>-->
+                    <AbsoluteLayout BackgroundColor="Pink" Style="{StaticResource BoxItemStyle}">
+                      <Label Text="Pink" Style="{StaticResource BoxLabel}" ></Label>
+                    </AbsoluteLayout>
 
+                    <!--                  <StackLayout BackgroundColor="Aqua" Style="{StaticResource BoxItemStyle}"></StackLayout>-->
+                    <AbsoluteLayout BackgroundColor="Aqua" Style="{StaticResource BoxItemStyle}">
+                      <Label Text="Aqua" Style="{StaticResource BoxLabel}" ></Label>
+                    </AbsoluteLayout>
+
+                    <!--                  <StackLayout BackgroundColor="Fuchsia" Style="{StaticResource BoxItemStyle}"></StackLayout>-->
+                    <AbsoluteLayout BackgroundColor="Fuchsia" Style="{StaticResource BoxItemStyle}">
+                      <Label Text="Fuchsia" Style="{StaticResource BoxLabel}" ></Label>
+                    </AbsoluteLayout>
+
+                  </StackLayout>
+                  <StackLayout HorizontalOptions="FillAndExpand" BackgroundColor="Purple"></StackLayout>
+                  <Label Text="Long text bottom with some description" FontSize="12" HorizontalOptions="Center" TextColor="Blue" ></Label>
                 </StackLayout>
-                <StackLayout HorizontalOptions="FillAndExpand" BackgroundColor="Purple"></StackLayout>
-                <Label Text="Long text bottom with some description" FontSize="12" HorizontalOptions="Center" TextColor="Blue" ></Label>
               </StackLayout>
-            </StackLayout>
+
+            </RelativeLayout>
 
 
-          </ViewCell>
+
+
+          </listView:BigListCell>
         </DataTemplate>
       </ListView.ItemTemplate>
 
