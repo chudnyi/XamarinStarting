@@ -105,14 +105,6 @@ namespace StartingPCL.ListView
 
                         return new AvatarImageService(async (name, size) =>
                         {
-                            //                            var t = Task<ImageSource>.Factory.StartNew(() =>
-                            //                            {
-                            //                                loadingCounter += 1;
-                            //                                Task.Delay(1000).Wait();
-                            //                                loadingCounter -= 1;
-                            //                                return ImageSource.FromResource(name);
-                            //                            });
-                            //                            return t;
                             loadingCounter += 1;
                             var res = await Task<ImageSource>.Factory.StartNew(() =>
                             {

@@ -141,5 +141,20 @@ namespace StartingPCL
                 return avatarImageName;
             }
         }
-	}
+
+        private ImageSource avatarImageSource;
+        private Task<ImageSource> avatarImageSourceTask;
+
+        public async Task<ImageSource> AvatarImageSource(Size size)
+        {
+            if (avatarImageSource != null)
+                return avatarImageSource;
+
+            if (avatarImageSourceTask == null)
+                avatarImageSourceTask = this.AvatarImageService.ImageWithNameAndSizeAsync(this.AvatarImageName, size);
+            
+
+            return await avatarImageSourceTask;
+        }
+    }
 }

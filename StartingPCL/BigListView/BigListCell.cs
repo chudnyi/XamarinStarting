@@ -21,7 +21,17 @@ namespace StartingPCL.ListView
             var viewModel = this.BindingContext as ArticleViewModel;
             if (viewModel == null) return;
 
-            if(avatarImage == null)
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            var viewModel = this.BindingContext as ArticleViewModel;
+            if (viewModel == null) return;
+
+
+            if (avatarImage == null)
                 avatarImage = this.FindByName<Image>("avatarImage");
 
             if (!viewModel.AvatarImageService.ImageWithNameAndSizeAsyncAllowed)
@@ -33,13 +43,23 @@ namespace StartingPCL.ListView
             {
                 avatarImage.Source = null;
 
-                var imgSrc = await viewModel.AvatarImageService.ImageWithNameAndSizeAsync(viewModel.AvatarImageName, avatarImage.Bounds.Size);
+                var imgSrc = await viewModel.AvatarImageSource(avatarImage.Bounds.Size);
                 if (this.BindingContext == viewModel)
                 {
                     avatarImage.Source = imgSrc;
                 }
-
             }
+
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            var viewModel = this.BindingContext as ArticleViewModel;
+            if (viewModel == null) return;
+
+            
         }
     }
 }
