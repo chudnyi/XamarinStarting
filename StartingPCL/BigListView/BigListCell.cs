@@ -59,7 +59,7 @@ namespace StartingPCL.ListView
             var viewModel = this.BindingContext as ArticleViewModel;
             if (viewModel == null) return;
 
-            
+            viewModel.OnViewDisappearing();
         }
     }
 }

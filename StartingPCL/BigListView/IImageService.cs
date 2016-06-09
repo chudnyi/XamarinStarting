@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.Contracts;
+﻿using System;
+using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -8,9 +9,12 @@ namespace StartingPCL.ListView
     {
         ImageSource ImageWithNameAndSize(string name, Size size);
 
-        Task<ImageSource> ImageWithNameAndSizeAsync(string name, Size size);
 
         bool ImageWithNameAndSizeAsyncAllowed { get; }
-    
+
+        Task<ImageSource> ImageWithNameAndSizeAsync(string name, Size size);
+
+        bool RejectImageWithNameAndSizeAsync(string name, Size size);
+
     }
 }

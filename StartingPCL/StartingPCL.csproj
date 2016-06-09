@@ -34,7 +34,9 @@
     <Compile Include="BigListView\BigListCell.cs" />
     <Compile Include="BigListView\BigListViewModel.cs" />
     <Compile Include="BigListView\IImageService.cs" />
+    <Compile Include="BigListView\QueueImageService.cs" />
     <Compile Include="Helpers\ImageResourceExtension .cs" />
+    <Compile Include="Helpers\TransformQueue.cs" />
     <Compile Include="ListViewSupport\ListViewItemsSource.cs" />
     <Compile Include="BigListView\BigListViewPage.xaml.cs">
       <DependentUpon>BigListViewPage.xaml</DependentUpon>

@@ -156,5 +156,10 @@ namespace StartingPCL
 
             return await avatarImageSourceTask;
         }
+
+        public void OnViewDisappearing()
+        {
+            this.AvatarImageService.RejectImageWithNameAndSizeAsync(this.AvatarImageName, Size.Zero);
+        }
     }
 }

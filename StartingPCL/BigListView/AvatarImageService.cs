@@ -14,6 +14,7 @@ namespace StartingPCL.ListView
     {
         private readonly ImageSourceFactoryMethod FactoryMethod;
         private readonly ImageSourceFactoryMethodAsync FactoryMethodAsync;
+        private readonly Func<string, Size, bool> RejectMethodAsync;
 
         public AvatarImageService(ImageSourceFactoryMethod factoryMethod)
         {
@@ -27,6 +28,13 @@ namespace StartingPCL.ListView
             FactoryMethodAsync = factoryMethodAsync;
         }
 
+        public AvatarImageService(ImageSourceFactoryMethodAsync factoryMethodAsync, Func<string, Size, bool> rejectMethodAsync)
+        {
+            Debug.Assert(factoryMethodAsync != null);
+            FactoryMethodAsync = factoryMethodAsync;
+            RejectMethodAsync = rejectMethodAsync;
+        }
+
         public ImageSource ImageWithNameAndSize(string name, Size size)
         {
             return this.FactoryMethod(name, size);
@@ -38,5 +46,10 @@ namespace StartingPCL.ListView
         }
 
         public bool ImageWithNameAndSizeAsyncAllowed => FactoryMethodAsync != null;
+
+        public bool RejectImageWithNameAndSizeAsync(string name, Size size)
+        {
+            return RejectMethodAsync(name, size);
+        }
     }
 }

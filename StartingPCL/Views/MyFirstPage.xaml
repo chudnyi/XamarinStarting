@@ -7,6 +7,7 @@
       <Button Text="ListOneAvatarForEachRow" CommandParameter="ListOneAvatarForEachRow" Command="{Binding BigListCommand}" />
       <Button Text="ListOneAvatarForEachRowAsync" CommandParameter="ListOneAvatarForEachRowAsync" Command="{Binding BigListCommand}" />
       <Button Text="ListOneAvatarForEachRowAsyncDelay" CommandParameter="ListOneAvatarForEachRowAsyncDelay" Command="{Binding BigListCommand}" />
+      <Button Text="ListAvatarsUsingTransformQueue" CommandParameter="ListAvatarsUsingTransformQueue" Command="{Binding BigListCommand}" />
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>

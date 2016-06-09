@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using StartingPCL.Helpers;
 using StartingPCL.ListViewSupport;
 using StartingPCL.News.Services;
 using Xamarin.Forms;
@@ -99,7 +100,7 @@ namespace StartingPCL.ListView
                     {
                         return new AvatarImageService((name, size) => Task<ImageSource>.Factory.StartNew(() => ImageSource.FromFile("kdrpp40.png")));
                     }
-                case "ListOneAvatarForEachRowAsyncDelay":
+                case "ListAvatarForEachRowAsyncDelay":
                     {
                         int loadingCounter = 0;
 
@@ -108,9 +109,9 @@ namespace StartingPCL.ListView
                             loadingCounter += 1;
                             var res = await Task<ImageSource>.Factory.StartNew(() =>
                             {
-                                
+
                                 Task.Delay(1000).Wait();
-                                
+
                                 return ImageSource.FromResource(name);
                             });
                             loadingCounter -= 1;
@@ -118,6 +119,42 @@ namespace StartingPCL.ListView
                             Log.Info("Number of loading images: {0}", loadingCounter);
 
                             return res;
+                        });
+                    }
+                case "ListAvatarsUsingTransformQueue":
+                    {
+                        int loadingCounter = 0;
+
+                        var queue = TransformQueue<string, string, ImageSource>.Default;
+
+                        return new AvatarImageService(async (name, size) =>
+                        {
+                            loadingCounter += 1;
+                            try
+                            {
+                                var res =
+                                    await
+                                        queue.EnqueueTransform(name, name,
+                                            (key, input) => Task<ImageSource>.Factory.StartNew(() =>
+                                            {
+                                                Task.Delay(100).Wait();
+                                                return ImageSource.FromResource(name);
+                                            }));
+
+                                loadingCounter -= 1;
+                                Log.Info("Number of loading images: {0}", loadingCounter);
+
+                                return res;
+                            }
+                            catch (Exception ex)
+                            {
+                                return null;
+                            }
+
+                        }, (name, size) =>
+                        {
+                            queue.RemoveTransform(name);
+                            return true;
                         });
                     }
                 default:
