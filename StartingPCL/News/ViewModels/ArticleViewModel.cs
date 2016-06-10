@@ -135,8 +135,9 @@ namespace StartingPCL
                 {
                     var avaIndex = this.Index%100 + 1;
                     
-                    avatarImageName = $"StartingPCL.Resources.avatars.avatar-{avaIndex:0000}.jpg";
 //                    avatarImageName = $"StartingPCL.Resources.avatars.avatar-{avaIndex:0000}.jpg";
+//                    avatarImageName = $"http://localhost:8080/avatar-{avaIndex:0000}.jpg";
+                    avatarImageName = $"avatar-{avaIndex:0000}.jpg";
                 }
                 return avatarImageName;
             }
@@ -145,16 +146,16 @@ namespace StartingPCL
         private ImageSource avatarImageSource;
         private Task<ImageSource> avatarImageSourceTask;
 
-        public async Task<ImageSource> AvatarImageSource(Size size)
+        public Task<ImageSource> AvatarImageSource(Size size)
         {
             if (avatarImageSource != null)
-                return avatarImageSource;
+                return Task.FromResult(avatarImageSource);
 
             if (avatarImageSourceTask == null)
                 avatarImageSourceTask = this.AvatarImageService.ImageWithNameAndSizeAsync(this.AvatarImageName, size);
             
 
-            return await avatarImageSourceTask;
+            return avatarImageSourceTask;
         }
 
         public void OnViewDisappearing()

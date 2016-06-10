@@ -3,9 +3,13 @@ using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
 
+// https://msdn.microsoft.com/ru-ru/library/dd997371(v=vs.110).aspx
+// 
+
 namespace StartingPCL.Helpers
 {
     public class TransformQueue<TKey, TInput, TOutput>
+        where TOutput: class
     {
         public delegate Task<TOutput> QueueTransformAsync(TKey key, TInput input);
 
@@ -68,6 +72,15 @@ namespace StartingPCL.Helpers
 
         public Task<TOutput> EnqueueTransform(TKey key, TInput input, QueueTransformAsync transformAsync)
         {
+            foreach (var anItem in Queue)
+            {
+                if (anItem.Key.Equals(key))
+                {
+                    Log.Info($"Task with key {key} already present");
+                    return anItem.TaskCompletionSource.Task;
+                }
+            }
+
             var item = new QueueItem(key, input, transformAsync);
             Queue.Add(item);
             return item.TaskCompletionSource.Task;
@@ -86,7 +99,8 @@ namespace StartingPCL.Helpers
                 if (item.Key.Equals(key))
                 {
                     Log.Info($"Cancel task: {item.Key}");
-                    item.TaskCompletionSource.TrySetCanceled();
+//                    item.TaskCompletionSource.TrySetCanceled();
+                    item.TaskCompletionSource.TrySetResult(null);
                 }
             }
 
@@ -102,7 +116,8 @@ namespace StartingPCL.Helpers
                     continue;
 
                 Log.Info($"Cancel job: {item.Key}");
-                item.TaskCompletionSource.TrySetCanceled();
+//                item.TaskCompletionSource.TrySetCanceled();
+                item.TaskCompletionSource.TrySetResult(null);
             }
         }
     }

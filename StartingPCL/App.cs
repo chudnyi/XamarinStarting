@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net.Http;
+using ModernHttpClient;
 using Xamarin.Forms;
 
 namespace StartingPCL
@@ -7,9 +9,9 @@ namespace StartingPCL
 	{
 		//		static int mainThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
 		public static Redux.IStore<State> Store { get;} = new Redux.Store<State> (Reducer.Execute, new State ());
+        public static HttpClient HttpClient { get; } = new HttpClient(new NativeMessageHandler());
 
-
-		IRouter router { get; set; }
+        IRouter router { get; set; }
 
 		AppSetup appBuilder { get; set; }
 
@@ -29,17 +31,20 @@ namespace StartingPCL
 				Log.Info ("[Store] (2) changed: {0}", s);
 			});
 
-
-
 			this.appBuilder = new AppSetup ();
 			this.router = this.appBuilder.Router;
 
-			// The root page of your application
-			MainPage = this.router.mainPage ();
+
+
+
+            // The root page of your application
+            MainPage = this.router.mainPage ();
 			MainPage.BackgroundColor = Color.FromRgb (240, 240, 250);
 
+            
+
 //			router.RouteNewsPage ();
-		}
+        }
 
 		protected override void OnStart ()
 		{

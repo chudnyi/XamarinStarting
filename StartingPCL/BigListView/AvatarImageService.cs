@@ -49,7 +49,7 @@ namespace StartingPCL.ListView
 
         public bool RejectImageWithNameAndSizeAsync(string name, Size size)
         {
-            return RejectMethodAsync(name, size);
+            return RejectMethodAsync != null ? RejectMethodAsync(name, size) : false;
         }
     }
 }

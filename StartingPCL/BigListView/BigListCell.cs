@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace StartingPCL.ListView
@@ -43,11 +44,16 @@ namespace StartingPCL.ListView
             {
                 avatarImage.Source = null;
 
-                var imgSrc = await viewModel.AvatarImageSource(avatarImage.Bounds.Size);
-                if (this.BindingContext == viewModel)
+                try
                 {
-                    avatarImage.Source = imgSrc;
+                    var imgSrc = await viewModel.AvatarImageSource(avatarImage.Bounds.Size);
+                    if (this.BindingContext == viewModel)
+                        avatarImage.Source = imgSrc;
                 }
+                catch (OperationCanceledException ex)
+                {
+                    Log.Info($"Cancelled: {ex}");
+                }                
             }
 
         }
