@@ -165,6 +165,9 @@ namespace StartingPCL
 
         public Task<ImageSource> AvatarImageSource(Size size)
         {
+            return this.AvatarImageService.ImageWithNameAndSizeAsync(this.AvatarImageName, size);
+
+/*
             return Task<ImageSource>.Factory.StartNew(() =>
             {
                 if (avatarImageSource != null)
@@ -177,7 +180,7 @@ namespace StartingPCL
 
                 return task.Result;
             });
-
+*/
         }
 
         public void OnViewDisappearing()

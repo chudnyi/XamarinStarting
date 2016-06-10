@@ -39,23 +39,15 @@ namespace StartingPCL.ListView
             uri = uri ?? new Uri($"http://loremflickr.com/40/40/head?random={DateTime.Now.TimeOfDay.TotalMilliseconds}");
             var resizeAllowed = ResizeAllowed;
 
+            byte[] bytes;
+
             try
             {
                 using (var httpClient = new HttpClient(new NativeMessageHandler()))
                 {
-
                     using (var response = await httpClient.GetAsync(uri))
                     {
-                        var inputStream = await response.Content.ReadAsStreamAsync();
-                        if (resizeAllowed)
-                        {
-                            var bytes = ReadFully(inputStream);
-                            var resizedImage = App.ImageResizer.ResizeImage(bytes, (float)size.Width,
-                                (float)size.Height);
-                            var stream = new MemoryStream(resizedImage);
-                            return ImageSource.FromStream(() => stream);
-                        }
-                        return ImageSource.FromStream(() => inputStream);
+                        bytes = await response.Content.ReadAsByteArrayAsync();
                     }
                 }
             }
@@ -64,6 +56,23 @@ namespace StartingPCL.ListView
                 Log.Info("Loading image error: {0}", ex);
                 return ImageSource.FromResource("StartingPCL.Resources.avatars.Images.error40.png");
             }
+
+            if (bytes != null)
+            {
+                if (resizeAllowed)
+                {
+                    var resizedImage = App.ImageResizer.ResizeImage(bytes, (float)size.Width, (float)size.Height);
+                    var stream = new MemoryStream(resizedImage);
+                    return ImageSource.FromStream(() => stream);
+                }
+                else
+                {
+                    var stream = new MemoryStream(bytes);
+                    return ImageSource.FromStream(() => stream);
+                }
+            }
+
+            return null;
         }
 
         public bool RejectImageWithNameAndSizeAsync(string name, Size size)
