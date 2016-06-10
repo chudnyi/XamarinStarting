@@ -1,12 +1,18 @@
 
 #if __IOS__
+using System;
 using System.Drawing;
 using UIKit;
 using CoreGraphics;
+using StartingPCL.ListView;
+
 #endif
 
 #if __ANDROID__
+using System.IO;
 using Android.Graphics;
+using StartingPCL.ListView;
+
 #endif
 
 #if WINDOWS_PHONE
@@ -16,13 +22,13 @@ using System.Windows.Media.Imaging;
 
 namespace StartingPCL.Helpers
 {
-	public static class ImageResizer
-	{
+	public class ImageResizer : IImageResizer
+    {
 		static ImageResizer ()
 		{
 		}
 
-		public static byte[] ResizeImage (byte[] imageData, float width, float height)
+		public byte[] ResizeImage (byte[] imageData, float width, float height)
 		{
 			#if __IOS__
 			return ResizeImageIOS (imageData, width, height);
@@ -37,7 +43,7 @@ namespace StartingPCL.Helpers
 
 
 		#if __IOS__
-		public static byte[] ResizeImageIOS (byte[] imageData, float width, float height)
+		public byte[] ResizeImageIOS (byte[] imageData, float width, float height)
 		{
 			UIImage originalImage = ImageFromByteArray (imageData);
 			UIImageOrientation orientation = originalImage.Orientation;
@@ -60,7 +66,7 @@ namespace StartingPCL.Helpers
 			}
 		}
 
-		public static UIKit.UIImage ImageFromByteArray (byte[] data)
+		public UIKit.UIImage ImageFromByteArray (byte[] data)
 		{
 			if (data == null) {
 				return null;
@@ -79,7 +85,7 @@ namespace StartingPCL.Helpers
 
 		#if __ANDROID__
 		
-		public static byte[] ResizeImageAndroid (byte[] imageData, float width, float height)
+		public byte[] ResizeImageAndroid (byte[] imageData, float width, float height)
 		{
 			// Load the bitmap
 			Bitmap originalImage = BitmapFactory.DecodeByteArray (imageData, 0, imageData.Length);
@@ -96,7 +102,7 @@ namespace StartingPCL.Helpers
 
 		#if WINDOWS_PHONE
 		
-        public static byte[] ResizeImageWinPhone (byte[] imageData, float width, float height)
+        public byte[] ResizeImageWinPhone (byte[] imageData, float width, float height)
         {
             byte[] resizedData;
 

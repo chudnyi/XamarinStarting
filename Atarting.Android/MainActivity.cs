@@ -5,6 +5,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using StartingPCL;
+using StartingPCL.Helpers;
 
 namespace Starting.Android
 {
@@ -36,6 +38,8 @@ namespace Starting.Android
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
+
+            App.ImageResizer = new ImageResizer();
             LoadApplication(new StartingPCL.App());
         }
 

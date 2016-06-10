@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using StartingPCL;
+using StartingPCL.Helpers;
 using UIKit;
 
 namespace Starting02.iOS
@@ -15,7 +17,8 @@ namespace Starting02.iOS
 //			FFImageLoading.Forms.Touch.CachedImageRenderer.Init();
 			global::Xamarin.Forms.Forms.Init ();
 
-			LoadApplication (new StartingPCL.App ());
+            App.ImageResizer = new ImageResizer();
+            LoadApplication (new StartingPCL.App ());
 
 			return base.FinishedLaunching (app, options);
 		}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using ModernHttpClient;
+using StartingPCL.ListView;
 using Xamarin.Forms;
 
 namespace StartingPCL
@@ -10,6 +11,8 @@ namespace StartingPCL
 		//		static int mainThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
 		public static Redux.IStore<State> Store { get;} = new Redux.Store<State> (Reducer.Execute, new State ());
         public static HttpClient HttpClient { get; } = new HttpClient(new NativeMessageHandler());
+
+        public static IImageResizer ImageResizer { get; set; }
 
         IRouter router { get; set; }
 

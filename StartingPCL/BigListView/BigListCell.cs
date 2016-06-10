@@ -48,7 +48,9 @@ namespace StartingPCL.ListView
                 {
                     var imgSrc = await viewModel.AvatarImageSource(avatarImage.Bounds.Size);
                     if (this.BindingContext == viewModel)
+                    {
                         avatarImage.Source = imgSrc;
+                    }
                 }
                 catch (OperationCanceledException ex)
                 {

@@ -157,12 +157,21 @@ namespace StartingPCL.ListView
                             return true;
                         });
                     }
-                case "ListAvatarsOnlineUsingQueue_fast":
+                case "ListAvatarsOnlineUsingQueueFast":
                     {
                         int loadingCounter = 0;
                         return new NetworkImageService()
                         {
                             UriForImageKey = key => new Uri($"http://10.3.3.1:8080/{key}")
+                        };
+                    }
+                case "ListOnlineUsingQueueFastAndResize":
+                    {
+                        int loadingCounter = 0;
+                        return new NetworkImageService()
+                        {
+                            UriForImageKey = key => new Uri($"http://10.3.3.1:8080/{key}"),
+                            ResizeAllowed=true
                         };
                     }
                 case "ListAvatarsOnlineUsingQueue_loremflickr":
