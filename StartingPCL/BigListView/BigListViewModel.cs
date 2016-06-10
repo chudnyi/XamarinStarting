@@ -157,53 +157,21 @@ namespace StartingPCL.ListView
                             return true;
                         });
                     }
-                case "ListAvatarsOnlineUsingTransformQueue":
+                case "ListAvatarsOnlineUsingQueue_fast":
                     {
                         int loadingCounter = 0;
-                        return new NetworkImageService();
-
-                        /*
-                         * var queue = TransformQueue<string, string, ImageSource>.Default;
-                                                return new AvatarImageService(async (name, size) =>
-                                                {
-                                                    loadingCounter += 1;
-                                                    try
-                                                    {
-                                                        var res = await queue.EnqueueTransform(name, name,
-                                                                    (key, input) => Task<ImageSource>.Factory.StartNew( () =>
-                                                                    {
-                        //                                                Task.Delay(100).Wait();
-                        //                                                return ImageSource.FromResource(name);
-                        //                                                var uri = new Uri("http://lorempixel.com/40/40/");
-
-                                                                        var num = DateTime.Now.TimeOfDay.TotalMilliseconds;
-                                                                        var uri = new Uri($"http://loremflickr.com/40/40/head?random={num}");
-
-
-                                                                        return ImageSource.FromStream(() =>
-                                                                        {
-                                                                            var stream = ImageStream(uri);
-                                                                            stream.Wait();
-                                                                            return stream.Result;
-                                                                        });
-                                                                    }));
-
-                                                        loadingCounter -= 1;
-                                                        Log.Info("Number of loading images: {0}", loadingCounter);
-
-                                                        return res;
-                                                    }
-                                                    catch (Exception ex)
-                                                    {
-                                                        return null;
-                                                    }
-
-                                                }, (name, size) =>
-                                                {
-                                                    queue.RemoveTransform(name);
-                                                    return true;
-                                                });
-                        */
+                        return new NetworkImageService()
+                        {
+                            UriForImageKey = key => new Uri($"http://10.3.3.1:8080/{key}")
+                        };
+                    }
+                case "ListAvatarsOnlineUsingQueue_loremflickr":
+                    {
+                        int loadingCounter = 0;
+                        return new NetworkImageService()
+                        {
+                            UriForImageKey = key => new Uri($"http://loremflickr.com/40/40/head?random={DateTime.Now.TimeOfDay.TotalMilliseconds}")
+                        };
                     }
                 default:
                     throw new ArgumentException($"Unexpected mode: {mode}", nameof(mode));
@@ -213,24 +181,24 @@ namespace StartingPCL.ListView
         private static async Task<Stream> ImageStream(Uri url)
         {
             var httpClient = App.HttpClient;
-//            using (var httpClient = new HttpClient())
+            //            using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync(url))
                 {
                     response.EnsureSuccessStatusCode();
                     var inputStream = await response.Content.ReadAsStreamAsync();
                     return inputStream;
-/*
-                    using (var inputStream = await response.Content.ReadAsStreamAsync())
-                    {
-                        //                            inputStream.CopyTo(fileStream);
-//                        Image image = Image.FromStream(inputStream);
-//                        pictureBox1.Image = image;
+                    /*
+                                        using (var inputStream = await response.Content.ReadAsStreamAsync())
+                                        {
+                                            //                            inputStream.CopyTo(fileStream);
+                    //                        Image image = Image.FromStream(inputStream);
+                    //                        pictureBox1.Image = image;
 
-                        
-                        
-                    }
-*/
+
+
+                                        }
+                    */
                 }
             }
 

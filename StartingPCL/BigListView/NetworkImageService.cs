@@ -9,6 +9,8 @@ namespace StartingPCL.ListView
 {
     public class NetworkImageService : IImageService
     {
+        public Func<string, Uri> UriForImageKey;
+
         private TransformQueue<string, string, ImageSource> Queue { get; } = TransformQueue<string, string, ImageSource>.Default;
 
         public ImageSource ImageWithNameAndSize(string name, Size size)
@@ -26,9 +28,11 @@ namespace StartingPCL.ListView
 
         private async Task<ImageSource> LoadImageWithNameAsync(string key, string input)
         {
-            var num = DateTime.Now.TimeOfDay.TotalMilliseconds;
-//            var uri = new Uri($"http://loremflickr.com/40/40/head?random={num}");
-            var uri = new Uri($"http://10.3.3.1:8080/{key}");
+            //            var num = DateTime.Now.TimeOfDay.TotalMilliseconds;
+            //            var uri = new Uri($"http://loremflickr.com/40/40/head?random={num}");
+            //            var uri = new Uri($"http://10.3.3.1:8080/{key}");
+            var uri = UriForImageKey?.Invoke(key);
+            uri = uri ?? new Uri($"http://loremflickr.com/40/40/head?random={DateTime.Now.TimeOfDay.TotalMilliseconds}");
 
             using (var httpClient = new HttpClient(new NativeMessageHandler()))
             {
