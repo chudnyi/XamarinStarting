@@ -8,6 +8,16 @@ using System.Threading.Tasks;
 
 namespace StartingPCL.Helpers
 {
+    public class TransformQueueEventArgs : EventArgs
+    {
+        public TransformQueueEventArgs(int queueLength)
+        {
+            QueueLength = queueLength;
+        }
+
+        public int QueueLength { get; }
+    }
+
     public class TransformQueue<TKey, TInput, TOutput>
         where TOutput: class
     {
@@ -34,6 +44,7 @@ namespace StartingPCL.Helpers
         public static TransformQueue<TKey, TInput, TOutput> Default = new TransformQueue<TKey, TInput, TOutput>();
         private BlockingCollection<QueueItem> Queue { get; } = new BlockingCollection<QueueItem>();
 
+        public event EventHandler<TransformQueueEventArgs> QueueChanged;
 
         public TransformQueue()
         {
@@ -47,6 +58,8 @@ namespace StartingPCL.Helpers
             QueueItem item;
             while (Queue.TryTake(out item, Timeout.Infinite/*, cts.Token*/))
             {
+                QueueChanged?.Invoke(this, new TransformQueueEventArgs(Queue.Count));
+
                 Log.Info($"Process item: {item.Key} ... (count: {Queue.Count})");
                 var tcs = item.TaskCompletionSource;
 
@@ -83,6 +96,9 @@ namespace StartingPCL.Helpers
 
             var item = new QueueItem(key, input, transformAsync);
             Queue.Add(item);
+
+            QueueChanged?.Invoke(this, new TransformQueueEventArgs(Queue.Count));
+
             return item.TaskCompletionSource.Task;
         }
 

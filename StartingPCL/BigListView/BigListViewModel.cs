@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using StartingPCL.Helpers;
 using StartingPCL.ListViewSupport;
@@ -36,7 +37,6 @@ namespace StartingPCL.ListView
                 IsBusy = true,
                 Title = "Loading...",
             };
-
         }
 
         private ArticleViewModel ItemViewModelAtIndex(int index)
