@@ -162,7 +162,7 @@ namespace StartingPCL.ListView
                         int loadingCounter = 0;
                         return new NetworkImageService()
                         {
-                            UriForImageKey = key => new Uri($"http://10.3.3.1:8080/{key}")
+                            UriForImageKey = key => new Uri($"http://10.3.3.1:8080/avatars/{key}")
                         };
                     }
                 case "ListOnlineUsingQueueFastAndResize":
@@ -170,7 +170,7 @@ namespace StartingPCL.ListView
                         int loadingCounter = 0;
                         return new NetworkImageService()
                         {
-                            UriForImageKey = key => new Uri($"http://10.3.3.1:8080/{key}"),
+                            UriForImageKey = key => new Uri($"http://10.3.3.1:8080/avatars/{key}"),
                             ResizeAllowed=true
                         };
                     }

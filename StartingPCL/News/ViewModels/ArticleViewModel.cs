@@ -160,8 +160,14 @@ namespace StartingPCL
         {
             get
             {
-                return new Uri("http://10.3.3.1:8080/" + AvatarImageName);
+                return new Uri("http://10.3.3.1:8080/avatars/" + AvatarImageName);
             }
+        }
+        public Uri AvatarImageUriWithIndex(int index)
+        {
+            index = index % 2728 + 1;
+            var imageName = $"avatar-{index:0000}.jpg";
+            return new Uri("http://10.3.3.1:8080/avatars/" + imageName);
         }
 
         private ImageSource avatarImageSource;

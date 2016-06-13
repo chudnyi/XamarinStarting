@@ -32,9 +32,6 @@ namespace StartingPCL.ListView
         private async Task<ImageSource> LoadImageWithNameAsync(string key, string input)
         {
             Size size = new Size(40, 40);
-            //            var num = DateTime.Now.TimeOfDay.TotalMilliseconds;
-            //            var uri = new Uri($"http://loremflickr.com/40/40/head?random={num}");
-            //            var uri = new Uri($"http://10.3.3.1:8080/{key}");
             var uri = UriForImageKey?.Invoke(key);
             uri = uri ?? new Uri($"http://loremflickr.com/40/40/head?random={DateTime.Now.TimeOfDay.TotalMilliseconds}");
             var resizeAllowed = ResizeAllowed;

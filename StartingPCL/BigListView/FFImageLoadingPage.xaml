@@ -16,12 +16,20 @@
           <bigListView:FFImageViewCell>
             <StackLayout Orientation="Horizontal">
 
-              <forms:CachedImage x:Name="avatarImage" HorizontalOptions="Center" VerticalOptions="Center"
+              <forms:CachedImage x:Name="avatarImage" VerticalOptions="Center"
               WidthRequest="300" HeightRequest="300"
               DownsampleToViewSize="true" FadeAnimationEnabled="False" CacheDuration="0:0:2" >
-
               </forms:CachedImage>
-              <Label Text=""></Label>
+
+              <forms:CachedImage x:Name="avatarImage2" VerticalOptions="Center"
+                                 WidthRequest="200" HeightRequest="200"
+                                 DownsampleToViewSize="true" FadeAnimationEnabled="False" CacheDuration="0:0:2" />
+
+              <forms:CachedImage x:Name="avatarImage3" VerticalOptions="Center" 
+                                 WidthRequest="100" HeightRequest="100"
+                                 DownsampleToViewSize="true" FadeAnimationEnabled="False" CacheDuration="0:0:2" />
+
+              <Label Text="Title"></Label>
             </StackLayout>
           </bigListView:FFImageViewCell>
         </DataTemplate>
