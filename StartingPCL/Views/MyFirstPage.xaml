@@ -1,16 +1,21 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="StartingPCL.MyFirstPage">
   <ContentPage.Content>
-    <StackLayout Spacing="20" VerticalOptions="Center" HorizontalOptions="Center">
-<!--      <Button Text="Read News" Clicked="BtnNews_Clicked"/>-->
-      <Button Text="ListSingleStaticAvatar" CommandParameter="ListSingleStaticAvatar" Command="{Binding BigListCommand}" />
-      <Button Text="ListOneAvatarForEachRow" CommandParameter="ListOneAvatarForEachRow" Command="{Binding BigListCommand}" />
-      <Button Text="ListOneAvatarForEachRowAsync" CommandParameter="ListOneAvatarForEachRowAsync" Command="{Binding BigListCommand}" />
-      <Button Text="ListAvatarForEachRowAsyncDelay" CommandParameter="ListAvatarForEachRowAsyncDelay" Command="{Binding BigListCommand}" />
-      <Button Text="ListAvatarsUsingTransformQueue" CommandParameter="ListAvatarsUsingTransformQueue" Command="{Binding BigListCommand}" />
-      <Button Text="ListAvatarsOnlineUsingQueue_loremflickr" CommandParameter="ListAvatarsOnlineUsingQueue_loremflickr" Command="{Binding BigListCommand}" />
-      <Button Text="ListAvatarsOnlineUsingQueueFast" CommandParameter="ListAvatarsOnlineUsingQueueFast" Command="{Binding BigListCommand}" />
-      <Button Text="ListOnlineUsingQueueFastAndResize" CommandParameter="ListOnlineUsingQueueFastAndResize" Command="{Binding BigListCommand}" />
-    </StackLayout>
+    <ScrollView>
+      <StackLayout Spacing="20" VerticalOptions="Center" HorizontalOptions="Center">
+        <!--      <Button Text="Read News" Clicked="BtnNews_Clicked"/>-->
+        <Button Text="ListSingleStaticAvatar" CommandParameter="ListSingleStaticAvatar" Command="{Binding BigListCommand}" />
+        <Button Text="ListOneAvatarForEachRow" CommandParameter="ListOneAvatarForEachRow" Command="{Binding BigListCommand}" />
+        <Button Text="ListOneAvatarForEachRowAsync" CommandParameter="ListOneAvatarForEachRowAsync" Command="{Binding BigListCommand}" />
+        <Button Text="ListAvatarForEachRowAsyncDelay" CommandParameter="ListAvatarForEachRowAsyncDelay" Command="{Binding BigListCommand}" />
+        <Button Text="ListAvatarsUsingTransformQueue" CommandParameter="ListAvatarsUsingTransformQueue" Command="{Binding BigListCommand}" />
+        <Button Text="ListAvatarsOnlineUsingQueue_loremflickr" CommandParameter="ListAvatarsOnlineUsingQueue_loremflickr" Command="{Binding BigListCommand}" />
+        <Button Text="ListAvatarsOnlineUsingQueueFast" CommandParameter="ListAvatarsOnlineUsingQueueFast" Command="{Binding BigListCommand}" />
+        <Button Text="ListOnlineUsingQueueFastAndResize" CommandParameter="ListOnlineUsingQueueFastAndResize" Command="{Binding BigListCommand}" />
+
+        <Button Text="FFImageLoadingPage" CommandParameter="ListAvatarsOnlineUsingQueueFast" Command="{Binding FFImageLoadingCommand}" />
+
+      </StackLayout>
+    </ScrollView>
   </ContentPage.Content>
 </ContentPage>

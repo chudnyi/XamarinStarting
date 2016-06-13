@@ -33,6 +33,10 @@
     <Compile Include="BigListView\AvatarImageService.cs" />
     <Compile Include="BigListView\BigListCell.cs" />
     <Compile Include="BigListView\BigListViewModel.cs" />
+    <Compile Include="BigListView\FFImageLoadingPage.xaml.cs">
+      <DependentUpon>FFImageLoadingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BigListView\FFImageViewCell.cs" />
     <Compile Include="BigListView\IImageResizer.cs" />
     <Compile Include="BigListView\IImageService.cs" />
     <Compile Include="BigListView\NetworkImageService.cs" />
@@ -115,6 +119,18 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="FFImageLoading, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.FFImageLoading.2.1.3\lib\portable-net45+win8+wpa81+wp8\FFImageLoading.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FFImageLoading.Forms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.FFImageLoading.Forms.2.1.3\lib\portable-net45+win8+wpa81+wp8\FFImageLoading.Forms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FFImageLoading.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.FFImageLoading.2.1.3\lib\portable-net45+win8+wpa81+wp8\FFImageLoading.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ModernHttpClient, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\modernhttpclient.2.4.2\lib\Portable-Net45+WinRT45+WP8+WPA81\ModernHttpClient.dll</HintPath>
       <Private>True</Private>
@@ -291,5 +307,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Images\error40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BigListView\FFImageLoadingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

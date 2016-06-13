@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reactive.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace StartingPCL.ListView
@@ -46,6 +47,8 @@ namespace StartingPCL.ListView
 
                 try
                 {
+//                    viewModel.AvatarImageSource(avatarImage.Bounds.Size);
+
                     var imgSrc = await viewModel.AvatarImageSource(avatarImage.Bounds.Size);
                     if (this.BindingContext == viewModel)
                     {

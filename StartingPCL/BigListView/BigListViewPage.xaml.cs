@@ -32,7 +32,10 @@ namespace StartingPCL.ListView
             var queue = TransformQueue<string, string, ImageSource>.Default;
             queue.QueueChanged += (sender, args) =>
             {
-                toolbarItem.Text = $"Queue: {args.QueueLength}";
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    toolbarItem.Text = $"Queue: {args.QueueLength}";
+                });
             };
         }
     }

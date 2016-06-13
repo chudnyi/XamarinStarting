@@ -21,6 +21,8 @@ namespace StartingPCL
 		void RouteArticleDetailsPage (Article model);
 
         void RouteBigList(string mode);
-    }
+
+	    void RouteFFImageLoading(string mode);
+	}
 }
 

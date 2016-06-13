@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using StartingPCL;
+using StartingPCL.BigListView;
 using StartingPCL.ListView;
 
 namespace StartingPCL
@@ -84,6 +85,16 @@ namespace StartingPCL
             };
 
             var page = new BigListViewPage(vm);
+            this.navigationPage.PushAsync(page);
+        }
+        public void RouteFFImageLoading(string mode)
+        {
+            var vm = new BigListViewModel()
+            {
+                AvatarImageService = BigListViewModel.ImageServiceWithMode(mode)
+            };
+
+            var page = new FFImageLoadingPage(vm);
             this.navigationPage.PushAsync(page);
         }
     }

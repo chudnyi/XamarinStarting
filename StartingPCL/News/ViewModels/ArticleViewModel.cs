@@ -150,13 +150,17 @@ namespace StartingPCL
             {
                 if (avatarImageName == null)
                 {
-                    var avaIndex = this.Index % 100 + 1;
-
-                    //                    avatarImageName = $"StartingPCL.Resources.avatars.avatar-{avaIndex:0000}.jpg";
-                    //                    avatarImageName = $"http://localhost:8080/avatar-{avaIndex:0000}.jpg";
+                    var avaIndex = this.Index % 2728 + 1;
                     avatarImageName = $"avatar-{avaIndex:0000}.jpg";
                 }
                 return avatarImageName;
+            }
+        }
+        public Uri AvatarImageUri
+        {
+            get
+            {
+                return new Uri("http://10.3.3.1:8080/" + AvatarImageName);
             }
         }
 
@@ -167,20 +171,20 @@ namespace StartingPCL
         {
             return this.AvatarImageService.ImageWithNameAndSizeAsync(this.AvatarImageName, size);
 
-/*
-            return Task<ImageSource>.Factory.StartNew(() =>
-            {
-                if (avatarImageSource != null)
-                    return avatarImageSource;
+            /*
+                        return Task<ImageSource>.Factory.StartNew(() =>
+                        {
+                            if (avatarImageSource != null)
+                                return avatarImageSource;
 
-                //                if (avatarImageSourceTask == null)
-                //                    avatarImageSourceTask = this.AvatarImageService.ImageWithNameAndSizeAsync(this.AvatarImageName, size);
-                var task = this.AvatarImageService.ImageWithNameAndSizeAsync(this.AvatarImageName, size);
-                task.Wait();
+                            //                if (avatarImageSourceTask == null)
+                            //                    avatarImageSourceTask = this.AvatarImageService.ImageWithNameAndSizeAsync(this.AvatarImageName, size);
+                            var task = this.AvatarImageService.ImageWithNameAndSizeAsync(this.AvatarImageName, size);
+                            task.Wait();
 
-                return task.Result;
-            });
-*/
+                            return task.Result;
+                        });
+            */
         }
 
         public void OnViewDisappearing()

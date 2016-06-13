@@ -19,7 +19,7 @@ namespace StartingPCL.ListViewSupport
             Count = count;
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator() 
         {
             return GetEnumerator();
         }
